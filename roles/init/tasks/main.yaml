@@ -24,3 +24,8 @@
   ansible.builtin.apt:
     update_cache: true
     cache_valid_time: 86400
+
+- name: Add .bash_aliases to /home/ubuntu
+  ansible.builtin.copy:
+    src: ./custom/.bash_aliases
+    dest: /home/ubuntu/.bash_aliases
