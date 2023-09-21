@@ -8,17 +8,17 @@
     name: roman
     comment: Roman Kuchin
 
-- name: Set authorized key for juri
-  ansible.posix.authorized_key:
-    user: juri
-    state: present
-    key: https://github.com/hudolejev.keys
+#- name: Set authorized key for juri
+#  ansible.posix.authorized_key:
+#    user: juri
+#    state: present
+#    key: https://github.com/hudolejev.keys
 
-- name: Set authorized key for roman
-  ansible.posix.authorized_key:
-    user: roman
-    state: present
-    key: https://github.com/romankuchin.keys
+#- name: Set authorized key for roman
+#  ansible.posix.authorized_key:
+#    user: roman
+#    state: present
+#    key: https://github.com/romankuchin.keys
 
 - name: Update APT cache
   ansible.builtin.apt:
