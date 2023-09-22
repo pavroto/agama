@@ -27,5 +27,5 @@
 
 - name: Add .bash_aliases to /home/ubuntu
   ansible.builtin.copy:
-    src: ./custom/.bash_aliases
+    src: ./resources/.bash_aliases
     dest: /home/ubuntu/.bash_aliases
