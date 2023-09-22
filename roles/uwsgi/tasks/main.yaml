@@ -12,7 +12,7 @@
 
 - name: Copy agama.ini
   ansible.builtin.copy:
-    src: ./resources/agama.ini
+    src: ./roles/uwsgi/files/agama.ini
     dest: /etc/uwsgi/apps-enabled/agama.ini
   notify:
     - Restart uWSGI
