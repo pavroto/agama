@@ -1,0 +1,12 @@
+- name: Install uwsgi
+  ansible.builtin.apt:
+    name:
+      - uwsgi
+      - uwsgi-plugin-python3
+
+- name: Copy agama.ini
+  ansible.builtin.copy:
+    src: ./resources/agama.ini
+    dest: /etc/uwsgi/apps-enabled/agama.ini
+  notify:
+    - Restart uWSGI
