@@ -4,6 +4,11 @@
       - uwsgi
       - uwsgi-plugin-python3
 
+- name: Service uWSGI
+  ansible.builtin.service:
+    name: uwsgi
+    state: started
+
 - name: Copy agama.ini
   ansible.builtin.copy:
     src: ./resources/agama.ini
