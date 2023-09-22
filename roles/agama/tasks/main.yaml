@@ -1,15 +1,13 @@
 - name: Create system user agama
   ansible.builtin.user:
     name: agama
-    shell: /usr/sbin/nologin
-    password: '!'
-    create_home: false
+    system: true
 
 - name: Create folder /opt/agama
   ansible.builtin.file:
     path: /opt/agama
     state: directory
-    mode: '2750'
+    mode: '750'
     owner: agama
     group: agama
 
