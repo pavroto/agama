@@ -7,3 +7,10 @@
     name: nginx
     state: started
     enabled: true
+
+- name: Copy default
+  ansible.builtin.copy:
+    src: ./roles/nginx/files/default
+    dest: /etc/nginx/sites-enabled/default
+  notify:
+    - Restart Nginx
