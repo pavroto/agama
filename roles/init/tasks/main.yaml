@@ -29,3 +29,5 @@
   ansible.builtin.copy:
     src: ./roles/init/files/bash_aliases
     dest: /home/ubuntu/.bash_aliases
+    owner: ubuntu
+    group: ubuntu
