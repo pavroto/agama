@@ -8,6 +8,7 @@
   ansible.builtin.service:
     name: uwsgi
     state: started
+    enabled: true
 
 - name: Copy agama.ini
   ansible.builtin.copy:
