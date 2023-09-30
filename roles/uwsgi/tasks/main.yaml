@@ -11,8 +11,10 @@
     enabled: true
 
 - name: Copy agama.ini
-  ansible.builtin.copy:
-    src: ./roles/uwsgi/files/agama.ini
+  ansible.builtin.template:
+    src: agama.ini.j2
     dest: /etc/uwsgi/apps-enabled/agama.ini
+    owner: agama
+    mode: 600
   notify:
     - Restart uWSGI
