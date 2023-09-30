@@ -7,3 +7,10 @@
     name: mysql
     state: started
     enabled: true
+
+- name: Bind to public address
+  ansible.builtin.copy:
+    src: address.cnf
+    dest: /etc/mysql/mysql.conf.d/override.cnf 
+  notify:
+    - Restart MySQL
