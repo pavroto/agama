@@ -13,8 +13,9 @@
 
 - name: Install dependencies for Agama
   ansible.builtin.apt:
-    name: python3-flask-sqlalchemy
-    state: present
+    name: 
+      - python3-flask-sqlalchemy
+      - python3-pymysql 
 
 - name: Download Agama
   ansible.builtin.get_url:
