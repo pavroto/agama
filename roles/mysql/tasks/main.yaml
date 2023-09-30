@@ -1,6 +1,8 @@
 - name: Install MySQL
   ansible.builtin.apt:
-    name: mysql-server
+    name: 
+      - mysql-server
+      - python3-pymysql
 
 - name: Service MySQL
   ansible.builtin.service:
@@ -14,3 +16,8 @@
     dest: /etc/mysql/mysql.conf.d/override.cnf 
   notify:
     - Restart MySQL
+
+- name: MySQL database
+  community.mysql.mysql_db:
+    name: "{{ mysql_database }}"
+    login_unix_socket: /var/run/mysqld/mysqld.sock
