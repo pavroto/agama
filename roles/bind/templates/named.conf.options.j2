@@ -1,0 +1,19 @@
+{% if vmnet %}
+acl vmnet {
+{% for i in vmnet %}        {{ i }}; 
+{% endfor %}}; 
+{% endif %}
+
+options {
+        directory "/var/lib/bind";
+
+	{% if public_forwarders %}forwarders {
+        {% for i in public_forwarders %}
+	{{i}};
+	{% endfor %}};
+	{% endif %}
+		
+	allow-query { vmnet; };
+	
+        dnssec-validation no;
+};
