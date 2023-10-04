@@ -4,6 +4,11 @@
     roles: 
         - init
 
+  - name: DNS servers
+    hosts: dns_servers
+    roles:
+      - bind
+
   - name: Database servers
     hosts: db_servers
     roles:
