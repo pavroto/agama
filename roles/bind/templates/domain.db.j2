@@ -1,0 +1,14 @@
+;
+; BIND data file for local loopback interface
+;
+$TTL    604800
+{{ domain }}.       IN      SOA     pavroto-2.{{ domain }}. pavel.{{ domain }}. (
+                              2         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+{{ domain }}.	IN	NS	pavroto-2
+pavroto-1	IN	A	{{ hostvars['pavroto-1']['ansible_facts']['default_ipv4']['address'] }}
+pavroto-2	IN	A	{{ hostvars['pavroto-2']['ansible_facts']['default_ipv4']['address'] }}
