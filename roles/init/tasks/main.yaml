@@ -31,3 +31,8 @@
     dest: /home/ubuntu/.bash_aliases
     owner: ubuntu
     group: ubuntu
+
+- name: Template resolv.conf
+  ansible.builtin.template:
+    src: resolv.conf.j2
+    dest: /etc/resolv.conf
