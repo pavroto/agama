@@ -1,0 +1,246 @@
+{
+  "status": "success",
+  "data": {
+    "resultType": "vector",
+    "result": [
+      {
+        "metric": {
+          "__name__": "node_memory_Active_bytes",
+          "instance": "pavroto-1:9100",
+          "job": "linux"
+        },
+        "value": [
+          1696967722.605,
+          "555614208"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "node_memory_Active_bytes",
+          "instance": "pavroto-2:9100",
+          "job": "linux"
+        },
+        "value": [
+          1696967722.605,
+          "1043824640"
+        ]
+      }
+    ]
+  }
+}
+{
+  "status": "success",
+  "data": {
+    "resultType": "vector",
+    "result": [
+      {
+        "metric": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "0",
+          "instance": "pavroto-1:9100",
+          "job": "linux",
+          "mode": "idle"
+        },
+        "value": [
+          1696967762.268,
+          "63032.27"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "0",
+          "instance": "pavroto-1:9100",
+          "job": "linux",
+          "mode": "iowait"
+        },
+        "value": [
+          1696967762.268,
+          "173.66"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "0",
+          "instance": "pavroto-1:9100",
+          "job": "linux",
+          "mode": "irq"
+        },
+        "value": [
+          1696967762.268,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "0",
+          "instance": "pavroto-1:9100",
+          "job": "linux",
+          "mode": "nice"
+        },
+        "value": [
+          1696967762.268,
+          "20.58"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "0",
+          "instance": "pavroto-1:9100",
+          "job": "linux",
+          "mode": "softirq"
+        },
+        "value": [
+          1696967762.268,
+          "1.15"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "0",
+          "instance": "pavroto-1:9100",
+          "job": "linux",
+          "mode": "steal"
+        },
+        "value": [
+          1696967762.268,
+          "0.12"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "0",
+          "instance": "pavroto-1:9100",
+          "job": "linux",
+          "mode": "system"
+        },
+        "value": [
+          1696967762.268,
+          "92.22"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "0",
+          "instance": "pavroto-1:9100",
+          "job": "linux",
+          "mode": "user"
+        },
+        "value": [
+          1696967762.268,
+          "266.28"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "0",
+          "instance": "pavroto-2:9100",
+          "job": "linux",
+          "mode": "idle"
+        },
+        "value": [
+          1696967762.268,
+          "63094.12"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "0",
+          "instance": "pavroto-2:9100",
+          "job": "linux",
+          "mode": "iowait"
+        },
+        "value": [
+          1696967762.268,
+          "621.31"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "0",
+          "instance": "pavroto-2:9100",
+          "job": "linux",
+          "mode": "irq"
+        },
+        "value": [
+          1696967762.268,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "0",
+          "instance": "pavroto-2:9100",
+          "job": "linux",
+          "mode": "nice"
+        },
+        "value": [
+          1696967762.268,
+          "22.33"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "0",
+          "instance": "pavroto-2:9100",
+          "job": "linux",
+          "mode": "softirq"
+        },
+        "value": [
+          1696967762.268,
+          "6.89"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "0",
+          "instance": "pavroto-2:9100",
+          "job": "linux",
+          "mode": "steal"
+        },
+        "value": [
+          1696967762.268,
+          "0.54"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "0",
+          "instance": "pavroto-2:9100",
+          "job": "linux",
+          "mode": "system"
+        },
+        "value": [
+          1696967762.268,
+          "169.09"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "0",
+          "instance": "pavroto-2:9100",
+          "job": "linux",
+          "mode": "user"
+        },
+        "value": [
+          1696967762.268,
+          "454.03"
+        ]
+      }
+    ]
+  }
+}
