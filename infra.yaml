@@ -20,3 +20,8 @@
       - agama
       - uwsgi
       - nginx
+
+  - name: Monitor servers
+    hosts: monitor_servers
+    roles:
+      - prometheus
