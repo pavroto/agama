@@ -1,3 +1,7 @@
+- name: Set a hostname
+  ansible.builtin.hostname:
+    name: "{{ inventory_hostname }}"
+
 - name: Create user juri
   ansible.builtin.user:
     name: juri
@@ -32,7 +36,21 @@
     owner: ubuntu
     group: ubuntu
 
+
+# DNS settings
 - name: Template resolv.conf
   ansible.builtin.template:
     src: resolv.conf.j2
     dest: /etc/resolv.conf
+
+
+# Monitoring tools.
+- name: Install prometheus-node-exporter
+  ansible.builtin.apt:
+    name: prometheus-node-exporter
+
+- name: Service prometheus-node-exporter
+  ansible.builtin.service:
+    name: prometheus-node-exporter
+    state: started
+    enabled: true
