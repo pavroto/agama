@@ -25,3 +25,14 @@
     dest: /var/lib/bind/{{ domain }}.db
   notify:
     - rndc reload
+
+- name: Install Bind exporter
+  ansible.builtin.apt:
+    name: 
+      - prometheus-bind-exporter
+      - libxml2
+
+- name: Service Bind exporter
+  ansible.builtin.service:
+    name: prometheus-bind-exporter
+    state: started
