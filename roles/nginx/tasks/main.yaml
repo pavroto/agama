@@ -8,9 +8,9 @@
     state: started
     enabled: true
 
-- name: Copy default
-  ansible.builtin.copy:
-    src: ./roles/nginx/files/default
+- name: Template default
+  ansible.builtin.template:
+    src: default.j2
     dest: /etc/nginx/sites-enabled/default
   notify:
     - Restart Nginx
