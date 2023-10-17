@@ -44,12 +44,6 @@
   ansible.builtin.apt:
     name: prometheus-mysqld-exporter 
 
-- name: Service MySQL exporter
-  ansible.builtin.service:
-    name: prometheus-mysqld-exporter
-    state: started
-    enabled: true
-
 - name: Template my.cnf
   ansible.builtin.template:
     src: my.cnf.j2
@@ -59,3 +53,11 @@
     mode: '0640' 
   notify:
     - Restart MySQL exporter
+
+- name: Service MySQL exporter
+  ansible.builtin.service:
+    name: prometheus-mysqld-exporter
+    state: started
+    enabled: true
+
+
