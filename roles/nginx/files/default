@@ -9,5 +9,15 @@ server {
 	
 	location /prometheus {
 		proxy_pass http://pavroto-2:9090;	
-	}
+	}	
+}
+
+
+server {
+	listen 8080;
+
+	location = /stub_status {
+    		stub_status;
+	}	
+
 }
