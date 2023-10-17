@@ -1,0 +1,23 @@
+server {
+	listen 80 default_server;
+	server_name _;
+
+	location / {
+		uwsgi_pass localhost:5000;
+		include uwsgi_params;
+	}
+	
+	location /prometheus {
+		proxy_pass http://pavroto-2:9090;	
+	}	
+}
+
+
+server {
+	listen 8080;
+
+	location = /stub_status {
+    		stub_status;
+	}	
+
+}
