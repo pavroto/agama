@@ -6,10 +6,11 @@ server {
 		uwsgi_pass localhost:5000;
 		include uwsgi_params;
 	}
-	
+	{%- if "pavroto-2" in groups['monitor_servers'] %}	
 	location /prometheus {
 		proxy_pass http://pavroto-2:9090;	
 	}	
+	{%- endif %}
 }
 
 
