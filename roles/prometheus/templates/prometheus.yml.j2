@@ -34,6 +34,7 @@ scrape_configs:
     # metrics_path defaults to '/metrics'
     # scheme defaults to 'http'.
 
+    metrics_path: /prometheus/metrics
     static_configs:
       - targets: ['localhost:9090']
 
@@ -42,5 +43,29 @@ scrape_configs:
       - targets: [
 		{%- if groups['all'] %}
 		{%- for i in groups['all']%} "{{ i }}:9100",
+		{%- endfor %}
+		{%- endif %}]
+  
+  - job_name: web
+    static_configs:
+      - targets: [
+		{%- if groups['web_servers'] %}
+		{%- for i in groups['web_servers']%} "{{ i }}:9113",
+		{%- endfor %}
+		{%- endif %}]
+
+  - job_name: databases
+    static_configs:
+      - targets: [
+		{%- if groups['db_servers'] %}
+		{%- for i in groups['db_servers']%} "{{ i }}:9104",
+		{%- endfor %}
+		{%- endif %}]
+
+  - job_name: DNS
+    static_configs:
+      - targets: [
+		{%- if groups['dns_servers'] %}
+		{%- for i in groups['dns_servers']%} "{{ i }}:9119",
 		{%- endfor %}
 		{%- endif %}]
