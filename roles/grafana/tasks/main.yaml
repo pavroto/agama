@@ -1,0 +1,36 @@
+- name: Create /etc/apt/keyrings/
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+
+- name: Import Grafana GPG key
+  ansible.builtin.apt_key: 
+    url: https://apt.grafana.com/gpg.key
+    keyring: /etc/apt/keyrings/grafana.gpg
+    state: present
+
+- name: Add Grafana repo
+  ansible.builtin.apt_repository:
+    repo: deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stable main
+
+- name: Install Grafana and dependencies
+  ansible.builtin.apt:
+    name:
+      - apt-transport-https 
+      - software-properties-common 
+      - wget
+      - grafana
+
+- name: Copy grafana.ini
+  ansible.builtin.copy:
+    src: grafana.ini
+    dest: /etc/grafana/grafana.ini
+  notify:
+    - Restart Grafana
+
+- name: Service Grafana
+  ansible.builtin.service:
+    name: grafana-server
+    state: started
+
+
