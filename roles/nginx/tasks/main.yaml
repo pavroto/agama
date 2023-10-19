@@ -2,12 +2,6 @@
   ansible.builtin.apt:
     name: nginx
 
-- name: Service Nginx
-  ansible.builtin.service:
-    name: nginx
-    state: started
-    enabled: true
-
 - name: Template default
   ansible.builtin.template:
     src: default.j2
@@ -15,6 +9,12 @@
   notify:
     - Restart Nginx
     - Restart Nginx exporter
+
+- name: Service Nginx
+  ansible.builtin.service:
+    name: nginx
+    state: started
+    enabled: true
 
 - name: Install Nginx exporter
   ansible.builtin.apt:
