@@ -3,6 +3,8 @@
     hosts: all
     roles: 
         - init
+    tags:
+      - i
 
   - name: DNS servers
     hosts: dns_servers
@@ -31,5 +33,6 @@
     hosts: monitor_servers
     roles:
       - prometheus
+      - grafana
     tags:
       - m
