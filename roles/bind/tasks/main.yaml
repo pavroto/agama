@@ -3,12 +3,6 @@
     name: 
       - bind9
 
-- name: Service Bind9
-  ansible.builtin.service:  
-    name: bind9
-    state: started
-    enabled: true
-
 - name: Template named.conf.
   ansible.builtin.template:
     src: named.conf.{{ item }}.j2
@@ -31,6 +25,12 @@
     name: 
       - prometheus-bind-exporter
       - libxml2
+
+- name: Service Bind9
+  ansible.builtin.service:  
+    name: bind9
+    state: started
+    enabled: true
 
 - name: Service Bind exporter
   ansible.builtin.service:
