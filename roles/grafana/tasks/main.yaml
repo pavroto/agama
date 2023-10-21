@@ -21,32 +21,50 @@
       - wget
       - grafana
 
-- name: Copy grafana.ini
-  ansible.builtin.copy:
-    src: grafana.ini
+- name: Template grafana.ini
+  ansible.builtin.template:
+    src: grafana.ini.j2
     dest: /etc/grafana/grafana.ini
+    owner: grafana
+    group: grafana
+    mode: 0640
   notify:
     - Restart Grafana
 
-- name: User Grafana
-  community.grafana.grafana_user:
-    url: "http://localhost:3000"
-    name: "pavroto"
-    login: "{{ grafana_user }}"
-    password: "{{ grafana_password }}"
-    is_admin: true
-    url_username: "{{ grafana_user }}"
-    url_password: "{{ grafana_url_password }}"
-    email: "pavroto@{{ domain }}"
-    state: present
+- name: Copy provider
+  ansible.builtin.copy:
+    src: provider.yaml
+    dest: /etc/grafana/provisioning/dashboards/provider.yaml
+    owner: grafana
+    group: grafana
+  notify:
+    - Restart Grafana
 
-#- name: Dashboard Grafana
-#  grafana.grafana.grafana_dashboard:
-#    dashboard: dashboard.json
-#    grafana_url: http://localhost:3000
-#    url_username: "{{ grafana_user }}"
-#    url_password: "{{ grafana_url_password }}"
-     
+- name: mkdir /var/lib/grafana/dashboards 
+  ansible.builtin.file:
+    path: /var/lib/grafana/dashboards/
+    state: directory
+    owner: grafana
+    group: grafana
+
+- name: Copy Dashboard
+  ansible.builtin.copy:
+    src: dashboard.json
+    dest: /var/lib/grafana/dashboards/dashboard.json
+    owner: grafana
+    group: grafana
+  notify:
+    - Restart Grafana
+
+- name: Copy datasource
+  ansible.builtin.copy:
+    src: prometheus-datasource.yaml
+    dest: /etc/grafana/provisioning/datasources/prometheus-datasource.yaml
+    owner: grafana
+    group: grafana
+  notify:
+    - Restart Grafana
+
 - name: Service Grafana
   ansible.builtin.service:
     name: grafana-server
