@@ -28,9 +28,27 @@
   notify:
     - Restart Grafana
 
+- name: User Grafana
+  community.grafana.grafana_user:
+    url: "http://localhost:3000"
+    name: "pavroto"
+    login: "{{ grafana_user }}"
+    password: "{{ grafana_password }}"
+    is_admin: true
+    url_username: "{{ grafana_user }}"
+    url_password: "{{ grafana_url_password }}"
+    email: "pavroto@{{ domain }}"
+    state: present
+
+#- name: Dashboard Grafana
+#  grafana.grafana.grafana_dashboard:
+#    dashboard: dashboard.json
+#    grafana_url: http://localhost:3000
+#    url_username: "{{ grafana_user }}"
+#    url_password: "{{ grafana_url_password }}"
+     
 - name: Service Grafana
   ansible.builtin.service:
     name: grafana-server
     state: started
     enabled: true
-
