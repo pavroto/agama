@@ -8,12 +8,12 @@ server {
 	}
 	{%- if "pavroto-2" in groups['monitor_servers'] %}	
 	
-	location /prometheus/ {
-		proxy_pass http://pavroto-2:9090/prometheus/;	
+	location /prometheus {
+		proxy_pass http://pavroto-2:9090/prometheus;	
 	}	
 		
-	location /grafana/ {
-    		proxy_pass http://pavroto-2:3000/grafana/;
+	location /grafana {
+    		proxy_pass http://pavroto-2:3000/grafana;
 		proxy_set_header Host $host;
 		proxy_set_header X-Real-IP $remote_addr;
   	}
