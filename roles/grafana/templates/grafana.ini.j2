@@ -1,5 +1,13 @@
 
 [server]
 domain = pavroto.ttu
-root_url = %(protocol)s://%(domain)s:%(http_port)s/grafana
+root_url = %(protocol)s://%(domain)s:%(http_port)s/grafana/
 serve_from_sub_path = true
+
+[security]
+admin_user = {{ grafana_user }}
+admin_password = {{ grafana_password }}
+
+[provisioning]
+enabled = true
+dashboard = /etc/grafana/provisioning/dashboards/
