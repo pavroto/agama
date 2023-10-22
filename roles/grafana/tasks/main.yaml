@@ -49,8 +49,8 @@
 
 - name: Copy Dashboard
   ansible.builtin.copy:
-    src: dashboard.json
-    dest: /var/lib/grafana/dashboards/dashboard.json
+    src: main.json
+    dest: /var/lib/grafana/dashboards/main.json
     owner: grafana
     group: grafana
   notify:
