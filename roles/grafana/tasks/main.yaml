@@ -56,10 +56,19 @@
   notify:
     - Restart Grafana
 
-- name: Copy datasource
+- name: Copy prometheus datasource
   ansible.builtin.copy:
     src: prometheus-datasource.yaml
     dest: /etc/grafana/provisioning/datasources/prometheus-datasource.yaml
+    owner: grafana
+    group: grafana
+  notify:
+    - Restart Grafana
+
+- name: Copy influxdb datasource
+  ansible.builtin.copy:
+    src: influxdb-datasource.yaml
+    dest: /etc/grafana/provisioning/datasources/influxdb.yaml
     owner: grafana
     group: grafana
   notify:
