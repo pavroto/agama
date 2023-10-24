@@ -1,11 +1,33 @@
+- name: Create /etc/apt/keyrings/
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+
+- name: Import InfluxData GPG key
+  ansible.builtin.apt_key: 
+    url: https://repos.influxdata.com/influxdata-archive_compat.key
+    keyring: /etc/apt/keyrings/influxdata-archive_compat.gpg
+    state: present
+
+- name: Add InfluxData repo
+  ansible.builtin.apt_repository:
+    repo: deb [signed-by=/etc/apt/keyrings/influxdata-archive_compat.gpg] https://repos.influxdata.com/debian stable main
+
 - name: Install InfluxDB
   apt:
     name:
       - influxdb
       - influxdb-client
+      - telegraf
 
 - name: Service InfluxDB
   service:
     name: influxdb
+    enabled: true
+    state: started
+
+- name: Service Telgraf
+  service:
+    name: telegraf
     enabled: true
     state: started
