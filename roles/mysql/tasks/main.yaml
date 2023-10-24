@@ -34,10 +34,6 @@
     priv: '*.*:PROCESS,REPLICATION CLIENT'
     login_unix_socket: /var/run/mysqld/mysqld.sock    
 
-- name: Install MySQL exporter
-  ansible.builtin.apt:
-    name: prometheus-mysqld-exporter 
-
 - name: Template my.cnf
   ansible.builtin.template:
     src: my.cnf.j2
@@ -47,6 +43,10 @@
     mode: '0640' 
   notify:
     - Restart MySQL exporter
+
+- name: Install MySQL exporter
+  ansible.builtin.apt:
+    name: prometheus-mysqld-exporter 
 
 - name: Service MySQL
   ansible.builtin.service:
