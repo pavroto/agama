@@ -47,30 +47,28 @@
     owner: grafana
     group: grafana
 
-- name: Copy Dashboard
+- name: Copy Dashboards
   ansible.builtin.copy:
-    src: main.json
-    dest: /var/lib/grafana/dashboards/main.json
+    src: "{{ item }}.json"
+    dest: "/var/lib/grafana/dashboards/{{ item }}.json"
     owner: grafana
     group: grafana
+  loop:
+    - main
+    - syslog
   notify:
     - Restart Grafana
 
-- name: Copy prometheus datasource
-  ansible.builtin.copy:
-    src: prometheus-datasource.yaml
-    dest: /etc/grafana/provisioning/datasources/prometheus-datasource.yaml
+- name: Copy datasources
+  copy:
+    src: "{{ item }}-datasource.yaml"
+    dest: "/etc/grafana/provisioning/datasources/{{ item }}-datasource.yaml"
     owner: grafana
     group: grafana
-  notify:
-    - Restart Grafana
-
-- name: Copy influxdb datasource
-  ansible.builtin.copy:
-    src: influxdb-datasource.yaml
-    dest: /etc/grafana/provisioning/datasources/influxdb.yaml
-    owner: grafana
-    group: grafana
+  loop:
+    - prometheus
+    - influxdb-pinger
+    - influxdb-syslog
   notify:
     - Restart Grafana
 
