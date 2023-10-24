@@ -20,6 +20,13 @@
       - influxdb-client
       - telegraf
 
+- name: Copy telegraf.conf
+  copy:
+    src: telegraf.conf
+    dest: /etc/telegraf/telegraf.conf
+  notify:
+    - Restart Telegraf
+
 - name: Service InfluxDB
   service:
     name: influxdb
