@@ -1,0 +1,44 @@
+- name: Install fping
+  apt:
+    name: fping
+
+- name: Create system user agama
+  user:
+    name: pinger
+    system: true   
+
+- name: Copy pinger.sh
+  copy:
+    src: pinger.sh
+    dest: /usr/local/bin/pinger
+    mode: 0755
+  notify:
+    - Restart pinger
+- name: mkdir /etc/pinger/
+  ansible.builtin.file:
+    path: /etc/pinger/
+    state: directory
+
+- name: Copy pinger.conf
+  copy:
+    src: pinger.conf
+    dest: /etc/pinger/pinger.conf
+  notify:
+    - Restart pinger
+
+- name: Copy pinger.service
+  copy:
+    src: pinger.service
+    dest: /etc/systemd/system/pinger.service
+    mode: 0644
+  register: service_result
+
+- name: Command systemctl daemon-reload
+  command: systemctl daemon-reload
+  when: service_result is changed
+
+- name: Service pinger
+  service:
+    name: pinger
+    state: started
+    enabled: true
