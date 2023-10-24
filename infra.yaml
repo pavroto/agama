@@ -5,6 +5,7 @@
         - init
     tags:
       - i
+      - init
 
   - name: DNS servers
     hosts: dns_servers
@@ -12,13 +13,16 @@
       - bind
     tags:
       - b
+      - bind
 
   - name: Database servers
     hosts: db_servers
     roles:
       - mysql
+      - influxdb
     tags:
       - db
+      - database
 
   - name: Web servers
     hosts: web_servers
@@ -28,6 +32,7 @@
       - nginx
     tags:
       - w
+      - web
 
   - name: Monitor servers
     hosts: monitor_servers
@@ -36,3 +41,12 @@
       - grafana
     tags:
       - m
+      - monitoring
+
+  - name: Pinger
+    hosts: pinger
+    roles:
+      - pinger
+    tags:
+      - p
+      - pinger
