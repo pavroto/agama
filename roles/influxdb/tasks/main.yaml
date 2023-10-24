@@ -1,0 +1,11 @@
+- name: Install InfluxDB
+  apt:
+    name:
+      - influxdb
+      - influxdb-client
+
+- name: Service InfluxDB
+  service:
+    name: influxdb
+    enabled: true
+    state: started
