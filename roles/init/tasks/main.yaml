@@ -40,13 +40,21 @@
     owner: ubuntu
     group: ubuntu
 
-
 # DNS settings
 - name: Template resolv.conf
   ansible.builtin.template:
     src: resolv.conf.j2
     dest: /etc/resolv.conf
+  notify:
+    - Restart systemd-resolved
 
+# Rsyslog configuration
+- name: Copy telegraf-output.conf
+  copy:
+    src: telegraf-output.conf 
+    dest: /etc/rsyslog.d/telegraf-output.conf
+  notify:
+    - Restart Rsyslog
 
 # Monitoring tools.
 - name: Install prometheus-node-exporter
