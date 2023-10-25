@@ -19,6 +19,13 @@
       - influxdb
       - telegraf
 
+- name: Copy influxdb.conf
+  copy:
+    src: influxdb.conf
+    dest: /etc/influxdb/influxdb.conf
+  notify:
+    - Restart InfluxDB
+
 - name: Copy telegraf.conf
   copy:
     src: telegraf.conf
