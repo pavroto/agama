@@ -59,6 +59,7 @@ scrape_configs:
       - targets: [
 		{%- if groups['db_servers'] %}
 		{%- for i in groups['db_servers']%} "{{ i }}:9104",
+		"{{ i }}:9424",
 		{%- endfor %}
 		{%- endif %}]
 
