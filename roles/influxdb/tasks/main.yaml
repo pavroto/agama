@@ -17,7 +17,6 @@
   apt:
     name:
       - influxdb
-      - influxdb-client
       - telegraf
 
 - name: Copy telegraf.conf
