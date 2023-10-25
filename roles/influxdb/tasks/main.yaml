@@ -26,6 +26,26 @@
   notify:
     - Restart Telegraf
 
+- name: Download InfluxDB exporter
+  ansible.builtin.get_url:
+    url: https://github.com/carlpett/influxdb_stats_exporter/releases/download/v0.1.1/influx_stats_exporter_linux_amd64
+    dest: /usr/local/bin/influx_exporter
+    mode: 0755
+    owner: prometheus
+    group: prometheus
+
+- name: Copy influxdb_exporter.service
+  copy:
+    src: influxdb_exporter.service
+    dest: /etc/systemd/system/prometheus-influxdb-stats-exporter.service
+  register: service_result
+  notify: 
+    - Restart InfluxDB exporter
+
+- name: Command systemctl daemon-reload
+  command: systemctl daemon-reload
+  when: service_result is changed
+
 - name: Service InfluxDB
   service:
     name: influxdb
@@ -37,3 +57,9 @@
     name: telegraf
     enabled: true
     state: started
+
+- name: Service InfluxDB exporter
+  service: 
+    name: prometheus-influxdb-stats-exporter.service
+    state: started
+
