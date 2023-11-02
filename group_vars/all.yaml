@@ -27,3 +27,6 @@ grafana_password: !vault |
           64303737383837313566323931396237376632353362613866343332623538636537
 
 domain: pavroto.ttu
+
+backup_server_ip: 192.168.42.132
+backup_server_ssh_key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90"
