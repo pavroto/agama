@@ -12,6 +12,25 @@
     name: roman
     comment: Roman Kuchin
 
+- name: Create user backup
+  user:
+    name: backup
+    comment: Backup User
+    home: /home/backup
+    move_home: true
+    generate_ssh_key: true
+    ssh_key_file: /home/backup/.ssh/id_rsa
+    ssh_key_type: rsa
+    system: true
+
+- name: Template known_hosts for backup
+  template:
+    src: known_hosts.backup.j2
+    dest: /home/backup/.ssh/known_hosts
+    owner: backup
+    group: backup
+    mode: '0600'
+
 #- name: Set authorized key for juri
 #  ansible.posix.authorized_key:
 #    user: juri
