@@ -12,3 +12,4 @@ $TTL    604800
 {{ domain }}.	IN	NS	pavroto-2
 pavroto-1	IN	A	{{ hostvars['pavroto-1']['ansible_facts']['default_ipv4']['address'] }}
 pavroto-2	IN	A	{{ hostvars['pavroto-2']['ansible_facts']['default_ipv4']['address'] }}
+backup		IN	A	{{ backup_address }}
