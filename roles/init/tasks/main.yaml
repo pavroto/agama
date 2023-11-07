@@ -12,24 +12,41 @@
     name: roman
     comment: Roman Kuchin
 
-- name: Create user backup
+- name: Install duplicity
+  apt:
+    name: duplicity
+
+- name: Create backup user
   user:
-    name: backup
+    name: "{{ backup_user }}"
     comment: Backup User
-    home: /home/backup
+    home: "{{ backup_user_home }}"
     move_home: true
     generate_ssh_key: true
-    ssh_key_file: /home/backup/.ssh/id_rsa
+    ssh_key_file: "{{ backup_user_home }}/.ssh/id_rsa"
     ssh_key_type: rsa
     system: true
 
 - name: Template known_hosts for backup
   template:
     src: known_hosts.backup.j2
-    dest: /home/backup/.ssh/known_hosts
+    dest: "{{ backup_user_home }}/.ssh/known_hosts"
     owner: backup
     group: backup
     mode: '0600'
+
+- name: Create backup directories
+  file:
+    state: directory
+    path: "{{ backup_user_home }}/{{ item }}"
+  loop:
+    - mysql
+    - influxdb
+    - restore
+
+- name: Create backup cron tab
+  template:
+    src: 
 
 #- name: Set authorized key for juri
 #  ansible.posix.authorized_key:
