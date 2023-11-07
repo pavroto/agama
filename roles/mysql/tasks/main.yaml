@@ -16,12 +16,19 @@
     name: "{{ mysql_database }}"
     login_unix_socket: /var/run/mysqld/mysqld.sock
 
-- name: MySQL user
+- name: MySQL agama user
   community.mysql.mysql_user:
     name: "{{ mysql_user }}"
     password: "{{ mysql_password }}"
     host: "%"
     priv: "{{ mysql_database }}.*:ALL"
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+
+- name: MySQL backup user
+  community.mysql.mysql_user:
+    name: "{{ backup_user }}"
+    password: "{{ backup_user_mysql_password }}"
+    priv: "{{ mysql_database }}.*:LOCK TABLES,SELECT"
     login_unix_socket: /var/run/mysqld/mysqld.sock
 
 - name: MySQL exporter user
@@ -34,15 +41,23 @@
     priv: '*.*:PROCESS,REPLICATION CLIENT'
     login_unix_socket: /var/run/mysqld/mysqld.sock    
 
-- name: Template my.cnf
+- name: Template prometheus my.cnf
   ansible.builtin.template:
-    src: my.cnf.j2
+    src: prometheus.my.cnf.j2
     dest: /var/lib/prometheus/.my.cnf
     owner: prometheus
     group: prometheus
     mode: '0640' 
   notify:
     - Restart MySQL exporter
+
+- name: Template backup my.cnf
+  ansible.builtin.template:
+    src: backup.my.cnf.j2
+    dest: "{{ backup_user_home }}/.my.cnf"
+    owner: "{{ backup_user }}"
+    group: "{{ backup_user }}"
+    mode: '0640' 
 
 - name: Install MySQL exporter
   ansible.builtin.apt:
