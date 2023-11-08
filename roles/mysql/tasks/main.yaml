@@ -1,8 +1,14 @@
+# ---------------------------------------------------------------------------------------------------------------------- #
+# Install dependencies
+
 - name: Install MySQL
   ansible.builtin.apt:
     name: 
       - mysql-server
       - python3-pymysql
+
+# ---------------------------------------------------------------------------------------------------------------------- #
+# Configure MySQL
 
 - name: Bind to public address
   ansible.builtin.copy:
@@ -11,10 +17,16 @@
   notify:
     - Restart MySQL
 
+# ---------------------------------------------------------------------------------------------------------------------- #
+# Create Agama database
+
 - name: MySQL database
   community.mysql.mysql_db:
     name: "{{ mysql_database }}"
     login_unix_socket: /var/run/mysqld/mysqld.sock
+
+# ---------------------------------------------------------------------------------------------------------------------- #
+# Create necessary users
 
 - name: MySQL agama user
   community.mysql.mysql_user:
@@ -41,6 +53,9 @@
     priv: '*.*:PROCESS,REPLICATION CLIENT'
     login_unix_socket: /var/run/mysqld/mysqld.sock    
 
+# ---------------------------------------------------------------------------------------------------------------------- #
+# Template my.cnf files for users
+
 - name: Template prometheus my.cnf
   ansible.builtin.template:
     src: prometheus.my.cnf.j2
@@ -57,7 +72,10 @@
     dest: "{{ backup_user_home }}/.my.cnf"
     owner: "{{ backup_user }}"
     group: "{{ backup_user }}"
-    mode: '0640' 
+    mode: '0600' 
+
+# ---------------------------------------------------------------------------------------------------------------------- #
+# Backup
 
 - name: Create backup directories
   file:
@@ -75,9 +93,16 @@
     src: mysql-backup.j2
     dest: /etc/cron.d/mysql-backup
 
+# ---------------------------------------------------------------------------------------------------------------------- #
+# Prometheus exporter
+# Note! This task MUST BE AFTER "Template prometheus my.cnf" task
+
 - name: Install MySQL exporter
   ansible.builtin.apt:
     name: prometheus-mysqld-exporter 
+
+# ---------------------------------------------------------------------------------------------------------------------- #
+# Service
 
 - name: Service MySQL
   ansible.builtin.service:
