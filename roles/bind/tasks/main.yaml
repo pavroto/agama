@@ -1,7 +1,13 @@
+# ---------------------------------------------------------------------------------------------------------------------- #
+# Install Bind
+
 - name: Install Bind9
   ansible.builtin.apt:
     name: 
       - bind9
+
+# ---------------------------------------------------------------------------------------------------------------------- #
+# Template configuration files
 
 - name: Template named.conf.
   ansible.builtin.template:
@@ -20,11 +26,17 @@
   notify:
     - rndc reload
 
+# ---------------------------------------------------------------------------------------------------------------------- #
+# Prometheus exporter
+
 - name: Install Bind exporter
   ansible.builtin.apt:
     name: 
       - prometheus-bind-exporter
       - libxml2
+
+# ---------------------------------------------------------------------------------------------------------------------- #
+# Service
 
 - name: Service Bind9
   ansible.builtin.service:  
@@ -36,3 +48,4 @@
   ansible.builtin.service:
     name: prometheus-bind-exporter
     state: started
+# ---------------------------------------------------------------------------------------------------------------------- #
