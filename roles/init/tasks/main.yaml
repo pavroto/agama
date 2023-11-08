@@ -27,11 +27,8 @@
     ssh_key_file: "{{ backup_user_home }}/.ssh/id_rsa"
     ssh_key_type: rsa
     system: true
-  register: backup_user
-
-- name: Change backup directory permissions
-  command: "chown -R {{ backup_user }}:{{ backup_user }} {{ backup_user_home }}"
-  when: backup_user is changed
+  notify:
+    - Change backup directory permissions
 
 - name: Template known_hosts for backup
   template:
