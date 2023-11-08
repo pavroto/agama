@@ -59,6 +59,22 @@
     group: "{{ backup_user }}"
     mode: '0640' 
 
+- name: Create backup directories
+  file:
+    state: directory
+    path: "{{ backup_user_home }}/{{ item }}"
+    owner: "{{ backup_user }}"
+    group: "{{ backup_user }}"
+    mode: '0700'
+  loop:
+    - mysql
+    - restore
+
+- name: Create backup cron tab
+  template:
+    src: mysql-backup.j2
+    dest: /etc/cron.d/mysql-backup
+
 - name: Install MySQL exporter
   ansible.builtin.apt:
     name: prometheus-mysqld-exporter 
