@@ -7,3 +7,6 @@
   service:
     name: rsyslog
     state: restarted
+
+- name: Change backup directory permissions
+  command: "chown -R {{ backup_user }}:{{ backup_user }} {{ backup_user_home }}"
