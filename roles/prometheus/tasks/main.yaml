@@ -1,7 +1,13 @@
-- name: Install Prometheus and Nginx
+# ---------------------------------------------------------------------------------------------------------------------- #
+# Install Prometheus
+
+- name: Install Prometheus
   ansible.builtin.apt:
     name: 
       - prometheus
+
+# ---------------------------------------------------------------------------------------------------------------------- #
+# Template configuration files
 
 - name: Template prometheus.yml
   ansible.builtin.template:
@@ -17,8 +23,12 @@
   notify:
     - Restart Prometheus
 
+# ---------------------------------------------------------------------------------------------------------------------- #
+# Service
+
 - name: Service Prometheus
   ansible.builtin.service:
     name: prometheus
     state: started
     enabled: true
+# ---------------------------------------------------------------------------------------------------------------------- #
