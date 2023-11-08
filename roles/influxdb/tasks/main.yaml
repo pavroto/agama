@@ -1,3 +1,6 @@
+# ---------------------------------------------------------------------------------------------------------------------- #
+# Installing dependencies
+
 - name: Create /etc/apt/keyrings/
   ansible.builtin.file:
     path: /etc/apt/keyrings
@@ -19,6 +22,10 @@
       - influxdb
       - telegraf
 
+
+# ---------------------------------------------------------------------------------------------------------------------- #
+# Configuration files
+
 - name: Copy influxdb.conf
   copy:
     src: influxdb.conf
@@ -32,6 +39,28 @@
     dest: /etc/telegraf/telegraf.conf
   notify:
     - Restart Telegraf
+
+# ---------------------------------------------------------------------------------------------------------------------- #
+# Backup
+
+- name: Create backup directories
+  file:
+    state: directory
+    path: "{{ backup_user_home }}/{{ item }}"
+    owner: "{{ backup_user }}"
+    group: "{{ backup_user }}"
+    mode: '0700'
+  loop:
+    - influxdb
+    - restore
+
+- name: Create backup cron tab
+  template:
+    src: influxdb-backup.j2
+    dest: /etc/cron.d/influxdb-backup
+
+# ---------------------------------------------------------------------------------------------------------------------- #
+# Prometheus exporter
 
 - name: Download InfluxDB exporter
   ansible.builtin.get_url:
@@ -52,6 +81,9 @@
 - name: Command systemctl daemon-reload
   command: systemctl daemon-reload
   when: service_result is changed
+
+# ---------------------------------------------------------------------------------------------------------------------- #
+# Service
 
 - name: Service InfluxDB
   service:
