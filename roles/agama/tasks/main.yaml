@@ -1,3 +1,6 @@
+# ---------------------------------------------------------------------------------------------------------------------- #
+# Install Agama
+
 - name: Create system user agama
   ansible.builtin.user:
     name: agama
@@ -22,3 +25,4 @@
     url: https://raw.githubusercontent.com/hudolejev/agama/master/agama.py
     dest: /opt/agama/agama.py
     checksum: md5:b1a2775c36ac551e19911183ab73dd88
+# ---------------------------------------------------------------------------------------------------------------------- #
