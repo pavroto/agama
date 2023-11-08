@@ -1,3 +1,6 @@
+# ---------------------------------------------------------------------------------------------------------------------- #
+# Install Grafana
+
 - name: Create /etc/apt/keyrings/
   ansible.builtin.file:
     path: /etc/apt/keyrings
@@ -20,6 +23,9 @@
       - software-properties-common 
       - wget
       - grafana
+
+# ---------------------------------------------------------------------------------------------------------------------- #
+# Configure Grafana configuration, datasources, providers and dashboards
 
 - name: Template grafana.ini
   ansible.builtin.template:
@@ -72,8 +78,12 @@
   notify:
     - Restart Grafana
 
+# ---------------------------------------------------------------------------------------------------------------------- #
+# Service
+
 - name: Service Grafana
   ansible.builtin.service:
     name: grafana-server
     state: started
     enabled: true
+# ---------------------------------------------------------------------------------------------------------------------- #
