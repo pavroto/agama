@@ -14,7 +14,8 @@
 
 - name: Install duplicity
   apt:
-    name: duplicity
+    name: 
+      - duplicity
 
 - name: Create backup user
   user:
@@ -34,19 +35,6 @@
     owner: backup
     group: backup
     mode: '0600'
-
-- name: Create backup directories
-  file:
-    state: directory
-    path: "{{ backup_user_home }}/{{ item }}"
-  loop:
-    - mysql
-    - influxdb
-    - restore
-
-- name: Create backup cron tab
-  template:
-    src: 
 
 #- name: Set authorized key for juri
 #  ansible.posix.authorized_key:
