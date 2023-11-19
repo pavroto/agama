@@ -101,6 +101,12 @@
   ansible.builtin.apt:
     name: prometheus-mysqld-exporter 
 
+- name: Copy prometheus-mysqld-exporter
+  copy:
+    src: prometheus-mysqld-exporter
+    dest: /etc/default/prometheus-mysqld-exporter
+  notify:
+    - Restart MySQL exporter
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Service
 
@@ -115,5 +121,3 @@
     name: prometheus-mysqld-exporter
     state: started
     enabled: true
-
-
