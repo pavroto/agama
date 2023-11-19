@@ -1,4 +1,13 @@
 # ---------------------------------------------------------------------------------------------------------------------- #
+# Debug sudo command
+# NOTE! This task MUST BE BEFORE "Set a hostname" task.
+
+- name: template hosts
+  template:
+    src: hosts.j2
+    dest: /etc/hosts
+
+# ---------------------------------------------------------------------------------------------------------------------- #
 # Hostname
 
 - name: Set a hostname
@@ -117,3 +126,7 @@
     state: started
     enabled: true
 # ---------------------------------------------------------------------------------------------------------------------- #
+
+#- debug: msg="trigger Change backup directory permissions"
+#  notify: Change backup directory permissions
+#  changed_when: true 
