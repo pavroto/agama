@@ -31,6 +31,10 @@
     value: "{{ 'OFF' if inventory_hostname == mysql_host else 'ON' }}"
     mode: persist
     login_unix_socket: /var/run/mysqld/mysqld.sock
+  notify:
+    - Reset MySQL source
+    - Reset MySQL replica
+   
 
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Create Agama database
@@ -39,6 +43,9 @@
   community.mysql.mysql_db:
     name: "{{ mysql_database }}"
     login_unix_socket: /var/run/mysqld/mysqld.sock
+  notify:
+    - Reset MySQL source
+    - Reset MySQL replica
 
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Create necessary users
@@ -143,3 +150,4 @@
     name: prometheus-mysqld-exporter
     state: started
     enabled: true
+
