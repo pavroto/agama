@@ -25,6 +25,13 @@
   notify:
     - Restart MySQL
 
+- name: Set read_only database
+  community.mysql.mysql_variables:
+    variable: read_only
+    value: "{{ 'OFF' if inventory_hostname == mysql_host else 'ON' }}"
+    mode: persist
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Create Agama database
 
