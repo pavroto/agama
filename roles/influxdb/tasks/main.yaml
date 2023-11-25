@@ -50,6 +50,7 @@
     owner: "{{ backup_user }}"
     group: "{{ backup_user }}"
     mode: '0700'
+  no_log: true
   loop:
     - influxdb
     - restore
