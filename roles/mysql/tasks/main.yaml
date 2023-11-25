@@ -53,6 +53,16 @@
     priv: '*.*:PROCESS,REPLICATION CLIENT'
     login_unix_socket: /var/run/mysqld/mysqld.sock    
 
+- name: MySQL replication user
+  community.mysql.mysql_user:
+    name: "{{ mysql_replication_user }}"
+    password: "{{ mysql_replication_password }}"
+    host: "%"
+    resource_limits: 
+      MAX_USER_CONNECTIONS: 3
+    priv: '*.*:REPLICATION SLAVE'
+    login_unix_socket: /var/run/mysqld/mysqld.sock    
+
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Template my.cnf files for users
 
@@ -63,6 +73,7 @@
     owner: prometheus
     group: prometheus
     mode: '0640' 
+  no_log: true
   notify:
     - Restart MySQL exporter
 
@@ -73,6 +84,7 @@
     owner: "{{ backup_user }}"
     group: "{{ backup_user }}"
     mode: '0600' 
+  no_log: true
 
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Backup
@@ -84,6 +96,7 @@
     owner: "{{ backup_user }}"
     group: "{{ backup_user }}"
     mode: '0700'
+  no_log: true
   loop:
     - mysql
     - restore
