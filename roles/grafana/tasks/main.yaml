@@ -63,6 +63,7 @@
   loop:
     - main
     - syslog
+    - mysql
   notify:
     - Restart Grafana
 
