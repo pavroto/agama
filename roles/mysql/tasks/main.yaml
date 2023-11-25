@@ -6,13 +6,21 @@
     name: 
       - mysql-server
       - python3-pymysql
+# ---------------------------------------------------------------------------------------------------------------------- #
+# Service MySQL
+
+- name: Service MySQL
+  ansible.builtin.service:
+    name: mysql
+    state: started
+    enabled: true
 
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Configure MySQL
 
-- name: Bind to public address
-  ansible.builtin.copy:
-    src: address.cnf
+- name: Template override.cnf
+  ansible.builtin.template:
+    src: override.cnf
     dest: /etc/mysql/mysql.conf.d/override.cnf 
   notify:
     - Restart MySQL
@@ -121,13 +129,7 @@
   notify:
     - Restart MySQL exporter
 # ---------------------------------------------------------------------------------------------------------------------- #
-# Service
-
-- name: Service MySQL
-  ansible.builtin.service:
-    name: mysql
-    state: started
-    enabled: true
+# Service exporter
 
 - name: Service MySQL exporter
   ansible.builtin.service:
