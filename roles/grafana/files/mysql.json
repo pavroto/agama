@@ -29,6 +29,122 @@
       "fieldConfig": {
         "defaults": {
           "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 6,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ff0f8d29-bd9d-46b5-9338-5a50a114eb0a"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "sum(rate(mysql_global_status_commands_total{instance=\"pavroto-1:9104\"}[1m]))",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "pavroto-1",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ff0f8d29-bd9d-46b5-9338-5a50a114eb0a"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "sum(rate(mysql_global_status_commands_total{instance=\"pavroto-2:9104\"}[1m]))",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "pavroto-2",
+          "range": true,
+          "refId": "B",
+          "useBackend": false
+        }
+      ],
+      "title": "Selects per minute",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "ff0f8d29-bd9d-46b5-9338-5a50a114eb0a"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
             "mode": "thresholds"
           },
           "mappings": [],
@@ -74,10 +190,10 @@
         ]
       },
       "gridPos": {
-        "h": 4,
+        "h": 2,
         "w": 24,
         "x": 0,
-        "y": 0
+        "y": 7
       },
       "id": 5,
       "options": {
@@ -144,7 +260,7 @@
         "h": 2,
         "w": 24,
         "x": 0,
-        "y": 4
+        "y": 9
       },
       "id": 1,
       "options": {
@@ -240,7 +356,7 @@
         "h": 2,
         "w": 24,
         "x": 0,
-        "y": 6
+        "y": 11
       },
       "id": 2,
       "options": {
@@ -323,7 +439,7 @@
         "h": 5,
         "w": 24,
         "x": 0,
-        "y": 8
+        "y": 13
       },
       "id": 3,
       "options": {
@@ -406,7 +522,7 @@
         "h": 5,
         "w": 24,
         "x": 0,
-        "y": 13
+        "y": 18
       },
       "id": 4,
       "options": {
@@ -421,7 +537,7 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto",
+        "textMode": "value",
         "wideLayout": true
       },
       "pluginVersion": "10.2.2",
@@ -461,6 +577,6 @@
   "timezone": "",
   "title": "MySQL",
   "uid": "b2ef3df0-6f90-4ea8-b606-fd4662b8a1f0",
-  "version": 3,
+  "version": 2,
   "weekStart": ""
 }
