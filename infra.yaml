@@ -22,6 +22,7 @@
     tags:
       - my
       - mysql
+      - mx
   
   - name: Web servers
     hosts: web_servers
@@ -32,6 +33,7 @@
     tags:
       - w
       - web
+      - mx
 
   - name: Database InfluxDB
     hosts: db_influxdb_servers
