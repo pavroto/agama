@@ -51,3 +51,4 @@ mysql_replication_password: !vault |
           62383236363738323438346332343531633237376634346538626334643438316337
 
 mysql_host: pavroto-2
+mysql_backup_host: "{{ groups['db_mysql_servers'] | reject('eq', mysql_host) | first | default(mysql_host) }}"
