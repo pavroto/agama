@@ -52,3 +52,5 @@ mysql_replication_password: !vault |
 
 mysql_host: pavroto-2
 mysql_backup_host: "{{ groups['db_mysql_servers'] | reject('eq', mysql_host) | first | default(mysql_host) }}"
+
+grafana_port: 3001
