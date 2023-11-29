@@ -13,7 +13,7 @@
   template:
     src: grafana.ini.j2
     dest: /opt/grafana/grafana.ini
-#    mode: '0600'
+    mode: '0640'
   notify:
     - Restart Grafana
 
@@ -57,4 +57,5 @@
     volumes: /opt/grafana:/etc/grafana
     published_ports: "{{ grafana_port }}:3000"
     dns_servers: "{{ hostvars['pavroto-2']['ansible_default_ipv4']['address'] }}"
+
 # ---------------------------------------------------------------------------------------------------------------------- #
