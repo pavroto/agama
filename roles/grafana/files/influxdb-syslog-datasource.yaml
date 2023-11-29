@@ -6,7 +6,7 @@ datasources:
     uid: "8a07b2eb-91b8-642a-f274-9fe21457464e"
     access: proxy
     user: grafana
-    url: http://localhost:8086
+    url: http://pavroto-2:8086
     jsonData:
       dbName: telegraf
       httpMode: GET
