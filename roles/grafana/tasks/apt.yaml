@@ -1,0 +1,91 @@
+# ---------------------------------------------------------------------------------------------------------------------- #
+# Install Grafana
+
+- name: Create /etc/apt/keyrings/
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+
+- name: Import Grafana GPG key
+  ansible.builtin.apt_key: 
+    url: https://apt.grafana.com/gpg.key
+    keyring: /etc/apt/keyrings/grafana.gpg
+    state: present
+
+- name: Add Grafana repo
+  ansible.builtin.apt_repository:
+    repo: deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stable main
+
+- name: Install Grafana and dependencies
+  ansible.builtin.apt:
+    name:
+      - apt-transport-https 
+      - software-properties-common 
+      - wget
+      - grafana
+
+# ---------------------------------------------------------------------------------------------------------------------- #
+# Configure Grafana configuration, datasources, providers and dashboards
+
+- name: Template grafana.ini
+  ansible.builtin.template:
+    src: grafana.ini.j2
+    dest: /etc/grafana/grafana.ini
+    owner: grafana
+    group: grafana
+    mode: 0640
+  no_log: true
+  notify:
+    - Restart Grafana
+
+- name: Copy provider
+  ansible.builtin.copy:
+    src: provider.yaml
+    dest: /etc/grafana/provisioning/dashboards/provider.yaml
+    owner: grafana
+    group: grafana
+  notify:
+    - Restart Grafana
+
+- name: mkdir /var/lib/grafana/dashboards 
+  ansible.builtin.file:
+    path: /var/lib/grafana/dashboards/
+    state: directory
+    owner: grafana
+    group: grafana
+
+- name: Copy Dashboards
+  ansible.builtin.copy:
+    src: "{{ item }}.json"
+    dest: "/var/lib/grafana/dashboards/{{ item }}.json"
+    owner: grafana
+    group: grafana
+  loop:
+    - main
+    - syslog
+    - mysql
+  notify:
+    - Restart Grafana
+
+- name: Copy datasources
+  copy:
+    src: "{{ item }}-datasource.yaml"
+    dest: "/etc/grafana/provisioning/datasources/{{ item }}-datasource.yaml"
+    owner: grafana
+    group: grafana
+  loop:
+    - prometheus
+    - influxdb-pinger
+    - influxdb-syslog
+  notify:
+    - Restart Grafana
+
+# ---------------------------------------------------------------------------------------------------------------------- #
+# Service
+
+- name: Service Grafana
+  ansible.builtin.service:
+    name: grafana-server
+    state: started
+    enabled: true
+# ---------------------------------------------------------------------------------------------------------------------- #
