@@ -6,7 +6,7 @@ datasources:
     uid: "e6f8ad70-fa53-4820-8449-3c51a7f39693"
     access: proxy
     user: grafana
-    url: http://localhost:8086
+    url: http://pavroto-2:8086
     jsonData:
       dbName: pinger
       httpMode: GET
