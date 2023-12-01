@@ -1,28 +1,40 @@
 # ---------------------------------------------------------------------------------------------------------------------- #
-# Install Agama
+# Prepare required files 
 
-- name: Create system user agama
-  ansible.builtin.user:
-    name: agama
-    system: true
-
-- name: Create folder /opt/agama
-  ansible.builtin.file:
-    path: /opt/agama
+- name: agama_directory_create
+  file:
     state: directory
-    mode: '750'
-    owner: agama
-    group: agama
+    path: /opt/agama/
 
-- name: Install dependencies for Agama
-  ansible.builtin.apt:
-    name: 
-      - python3-flask-sqlalchemy
-      - python3-pymysql 
-
-- name: Download Agama
+- name: agama_download
   ansible.builtin.get_url:
-    url: https://raw.githubusercontent.com/hudolejev/agama/master/agama.py
-    dest: /opt/agama/agama.py
-    checksum: md5:b1a2775c36ac551e19911183ab73dd88
+    url: "https://raw.githubusercontent.com/hudolejev/agama/master/{{ item }}"
+    dest: "/opt/agama/{{ item }}"
+  loop:
+    - Dockerfile
+    - agama.py
+
+
+# ---------------------------------------------------------------------------------------------------------------------- #
+# Create agama
+
+- name: agama_image
+  community.docker.docker_image:
+    name: agama
+    source: build
+    build:
+      path: /opt/agama
+#  no_log: true
+
+- name: agama_container
+  community.docker.docker_container:
+    name: agama
+    image: agama
+    state: started
+    published_ports: "{{ agama_port }}:8000"
+    env: 
+      AGAMA_DATABASE_URI: mysql+pymysql://{{ mysql_user }}:{{ mysql_password }}@{{ mysql_host }}.{{ domain }}/{{ mysql_database }}
+    dns_servers: "{{ hostvars['pavroto-2']['ansible_default_ipv4']['address'] }}"
+
+  
 # ---------------------------------------------------------------------------------------------------------------------- #
