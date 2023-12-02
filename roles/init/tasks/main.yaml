@@ -2,7 +2,7 @@
 # Debug sudo command
 # NOTE! This task MUST BE BEFORE "Set a hostname" task.
 
-- name: template hosts
+- name: init_template_hosts
   template:
     src: hosts.j2
     dest: /etc/hosts
@@ -10,19 +10,19 @@
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Hostname
 
-- name: Set a hostname
+- name: init_hostname
   ansible.builtin.hostname:
     name: "{{ inventory_hostname }}"
 
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Lecturers users
 
-- name: Create user juri
+- name: init_user_juri
   ansible.builtin.user:
     name: juri
     comment: Juri Hudolejev
 
-- name: Create user roman
+- name: init_user_roman
   ansible.builtin.user:
     name: roman
     comment: Roman Kuchin
@@ -42,12 +42,12 @@
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Backup
 
-- name: Install duplicity
+- name: init_install_duplicity
   apt:
     name: 
       - duplicity
 
-- name: Create backup user
+- name: init_user_backup
   user:
     name: "{{ backup_user }}"
     comment: Backup User
@@ -58,9 +58,9 @@
     ssh_key_type: rsa
     system: true
   notify:
-    - Change backup directory permissions
+    - init_command_chown_backup_directory
 
-- name: Template known_hosts for backup
+- name: init_template_known_hosts
   template:
     src: known_hosts.backup.j2
     dest: "{{ backup_user_home }}/.ssh/known_hosts"
@@ -72,19 +72,19 @@
 # ---------------------------------------------------------------------------------------------------------------------- #
 # APT updates
 
-- name: Update APT cache
+- name: init_apt_update
   ansible.builtin.apt:
     update_cache: true
     cache_valid_time: 86400
 
-- name: Update CA certificates
+- name: init_upgrade_ca_certificates
   ansible.builtin.apt:
     name: ca-certificates>=20211000*
 
 # ---------------------------------------------------------------------------------------------------------------------- #
 # .bash_aliases
 
-- name: Add .bash_aliases to /home/ubuntu
+- name: init_copy_bash_aliases
   ansible.builtin.copy:
     src: ./roles/init/files/bash_aliases
     dest: /home/ubuntu/.bash_aliases
@@ -94,34 +94,34 @@
 # ---------------------------------------------------------------------------------------------------------------------- #
 # DNS settings
 
-- name: Template resolv.conf
+- name: init_template_resolv
   ansible.builtin.template:
     src: resolv.conf.j2
     dest: /etc/resolv.conf
   notify:
-    - Restart systemd-resolved
+    - init_restart_resolved
 
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Rsyslog configuration
 
-- name: Copy telegraf-output.conf
+- name: init_copy_telegraf_output
   copy:
     src: telegraf-output.conf 
     dest: /etc/rsyslog.d/telegraf-output.conf
   notify:
-    - Restart Rsyslog
+    - init_restart_rsyslog
 
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Prometheus exporter
 
-- name: Install prometheus-node-exporter
+- name: init_apt_node_exporter
   ansible.builtin.apt:
     name: prometheus-node-exporter
 
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Service
 
-- name: Service prometheus-node-exporter
+- name: init_service_node_exporter
   ansible.builtin.service:
     name: prometheus-node-exporter
     state: started

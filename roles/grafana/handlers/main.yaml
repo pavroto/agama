@@ -1,4 +1,4 @@
-- name: Restart Grafana
+- name: grafana_restart
   community.docker.docker_container:
     name: grafana
     image: grafana/grafana  

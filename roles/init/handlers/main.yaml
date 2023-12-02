@@ -1,12 +1,12 @@
-- name: Restart systemd-resolved
+- name: init_restart_resolved
   service:
     name: systemd-resolved
     state: restarted
 
-- name: Restart Rsyslog
+- name: init_restart_rsyslog
   service:
     name: rsyslog
     state: restarted
 
-- name: Change backup directory permissions
+- name: init_command_chown_backup_directory
   command: "chown -R {{ backup_user }}:{{ backup_user }} {{ backup_user_home }}"

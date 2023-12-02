@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Install Prometheus
 
-- name: Install Prometheus
+- name: prometheus_install
   ansible.builtin.apt:
     name: 
       - prometheus
@@ -9,24 +9,24 @@
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Template configuration files
 
-- name: Template prometheus.yml
+- name: prometheus_template_yml
   ansible.builtin.template:
     src: prometheus.yml.j2
     dest: /etc/prometheus/prometheus.yml
   notify:
-    - Restart Prometheus
+    - prometheus_restart
 
-- name: Template prometheus.default
+- name: prometheus_template_default
   ansible.builtin.template:
     src: prometheus.default.j2
     dest: /etc/default/prometheus
   notify:
-    - Restart Prometheus
+    - prometheus_restart
 
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Service
 
-- name: Service Prometheus
+- name: prometheus_service
   ansible.builtin.service:
     name: prometheus
     state: started

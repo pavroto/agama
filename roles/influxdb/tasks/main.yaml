@@ -1,22 +1,22 @@
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Installing dependencies
 
-- name: Create /etc/apt/keyrings/
+- name: influxdb_directory_keyrings
   ansible.builtin.file:
     path: /etc/apt/keyrings
     state: directory
 
-- name: Import InfluxData GPG key
+- name: influxdb_apt_key
   ansible.builtin.apt_key: 
     url: https://repos.influxdata.com/influxdata-archive_compat.key
     keyring: /etc/apt/keyrings/influxdata-archive_compat.gpg
     state: present
 
-- name: Add InfluxData repo
+- name: influxdb_apt_repository
   ansible.builtin.apt_repository:
     repo: deb [signed-by=/etc/apt/keyrings/influxdata-archive_compat.gpg] https://repos.influxdata.com/debian stable main
 
-- name: Install InfluxDB
+- name: influxdb_install
   apt:
     name:
       - influxdb
@@ -26,24 +26,24 @@
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Configuration files
 
-- name: Copy influxdb.conf
+- name: influxdb_copy_influxdb_conf
   copy:
     src: influxdb.conf
     dest: /etc/influxdb/influxdb.conf
   notify:
-    - Restart InfluxDB
+    - influxdb_restart_influxdb
 
-- name: Copy telegraf.conf
+- name: influxdb_copy_telegraf_conf
   copy:
     src: telegraf.conf
     dest: /etc/telegraf/telegraf.conf
   notify:
-    - Restart Telegraf
+    - influxdb_restart_telegraf
 
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Backup
 
-- name: Create backup directories
+- name: influxdb_backup_directory
   file:
     state: directory
     path: "{{ backup_user_home }}/{{ item }}"
@@ -55,7 +55,7 @@
     - influxdb
     - restore
 
-- name: Create backup cron tab
+- name: influxdb_backup_cron
   template:
     src: influxdb-backup.j2
     dest: /etc/cron.d/influxdb-backup
@@ -63,42 +63,44 @@
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Prometheus exporter
 
-- name: Download InfluxDB exporter
+- name: influxdb_get_url_exporter
   ansible.builtin.get_url:
     url: https://github.com/carlpett/influxdb_stats_exporter/releases/download/v0.1.1/influx_stats_exporter_linux_amd64
     dest: /usr/local/bin/influx_exporter
     mode: 0755
     owner: prometheus
     group: prometheus
+  notify:
+    - influxdb_restart_exporter
 
-- name: Copy influxdb_exporter.service
+- name: influxdb_copy_exporter_unit
   copy:
     src: influxdb_exporter.service
     dest: /etc/systemd/system/prometheus-influxdb-stats-exporter.service
   register: service_result
   notify: 
-    - Restart InfluxDB exporter
+    - influxdb_restart_exporter
 
-- name: Command systemctl daemon-reload
+- name: influxdb_command_daemon_reload
   command: systemctl daemon-reload
   when: service_result is changed
 
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Service
 
-- name: Service InfluxDB
+- name: influxdb_service_influxdb
   service:
     name: influxdb
     enabled: true
     state: started
 
-- name: Service Telgraf
+- name: influxdb_service_telegraf
   service:
     name: telegraf
     enabled: true
     state: started
 
-- name: Service InfluxDB exporter
+- name: influxdb_service_exporter
   service: 
     name: prometheus-influxdb-stats-exporter.service
     state: started

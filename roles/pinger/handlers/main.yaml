@@ -1,4 +1,4 @@
-- name: Restart pinger
+- name: pinger_restart
   service:
     name: pinger
     state: restarted

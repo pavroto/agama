@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Install Bind
 
-- name: Install Bind9
+- name: bind_install
   ansible.builtin.apt:
     name: 
       - bind9
@@ -9,7 +9,7 @@
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Template configuration files
 
-- name: Template named.conf.
+- name: bind_template_named
   ansible.builtin.template:
     src: named.conf.{{ item }}.j2
     dest: /etc/bind/named.conf.{{ item }}
@@ -17,19 +17,19 @@
     - options
     - local
   notify:
-    - Restart Bind9
+    - bind_restart
 
-- name: Template domain.db.j2
+- name: bind_template_domain
   ansible.builtin.template:
     src: domain.db.j2
     dest: /var/lib/bind/{{ domain }}.db
   notify:
-    - rndc reload
+    - bind_restart_rndc
 
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Prometheus exporter
 
-- name: Install Bind exporter
+- name: bind_install_exporter
   ansible.builtin.apt:
     name: 
       - prometheus-bind-exporter
@@ -38,13 +38,13 @@
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Service
 
-- name: Service Bind9
+- name: bind_service
   ansible.builtin.service:  
     name: bind9
     state: started
     enabled: true
 
-- name: Service Bind exporter
+- name: bind_service_exporter
   ansible.builtin.service:
     name: prometheus-bind-exporter
     state: started

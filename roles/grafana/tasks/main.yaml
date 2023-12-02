@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Create volumes for grafana
 
-- name: Grafana volumes
+- name: grafana_directory
   file:
     state: directory
     path: "/opt/grafana/provisioning/{{ item }}"
@@ -9,22 +9,22 @@
     - dashboards
     - datasources
 
-- name: Template grafana.ini
+- name: grafana_template_grafana
   template:
     src: grafana.ini.j2
     dest: /opt/grafana/grafana.ini
     mode: '0640'
   notify:
-    - Restart Grafana
+    - grafana_restart
 
-- name: Copy provider
+- name: grafana_copy_provider
   ansible.builtin.copy:
     src: provider.yaml
     dest: /opt/grafana/provisioning/dashboards/default.yaml
   notify:
-    - Restart Grafana
+    - grafana_restart
 
-- name: Copy datasources
+- name: grafana_copy_datasource
   copy:
     src: "{{ item }}-datasource.yaml"
     dest: "/opt/grafana/provisioning/datasources/{{ item }}-datasource.yaml"
@@ -33,9 +33,9 @@
     - influxdb-pinger
     - influxdb-syslog
   notify:
-    - Restart Grafana  
+    - grafana_restart  
 
-- name: Copy Dashboards
+- name: grafana_copy_dashboard
   ansible.builtin.copy:
     src: "{{ item }}.json"
     dest: "/opt/grafana/provisioning/dashboards/{{ item }}.json"
@@ -44,12 +44,12 @@
     - syslog
     - mysql
   notify:
-    - Restart Grafana
+    - grafana_restart
 
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Create Grafana docker
 
-- name: Grafana docker
+- name: grafana_docker_container
   community.docker.docker_container:
     name: grafana
     image: grafana/grafana  

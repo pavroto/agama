@@ -1,38 +1,38 @@
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Install Nginx
 
-- name: install Nginx
+- name: nginx_install
   ansible.builtin.apt:
     name: nginx
 
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Template configuration files
 
-- name: Template default
+- name: nginx_template_default
   ansible.builtin.template:
     src: default.j2
     dest: /etc/nginx/sites-enabled/default
   notify:
-    - Restart Nginx
-    - Restart Nginx exporter
+    - nginx_restart
+    - nginx_restart_exporter
 
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Prometheus exporter
 
-- name: Install Nginx exporter
+- name: nginx_install_exporter
   ansible.builtin.apt:
     name: prometheus-nginx-exporter
 
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Service
 
-- name: Service Nginx
+- name: nginx_service
   ansible.builtin.service:
     name: nginx
     state: started
     enabled: true
 
-- name: Service Nginx exporter
+- name: nginx_service_exporter
   ansible.builtin.service:
     name: prometheus-nginx-exporter
     state: started

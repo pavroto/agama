@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Install dependencies
 
-- name: Install MySQL
+- name: mysql_install
   ansible.builtin.apt:
     name: 
       - mysql-server
@@ -9,7 +9,7 @@
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Service MySQL
 
-- name: Service MySQL
+- name: mysql_service
   ansible.builtin.service:
     name: mysql
     state: started
@@ -18,39 +18,38 @@
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Configure MySQL
 
-- name: Template override.cnf
+- name: mysql_template_override
   ansible.builtin.template:
     src: override.cnf
     dest: /etc/mysql/mysql.conf.d/override.cnf 
   notify:
-    - Restart MySQL
+    - mysql_restart
 
-- name: Set read_only database
+- name: mysql_variables
   community.mysql.mysql_variables:
     variable: read_only
     value: "{{ 'OFF' if inventory_hostname == mysql_host else 'ON' }}"
     mode: persist
     login_unix_socket: /var/run/mysqld/mysqld.sock
   notify:
-    - Reset MySQL source
-    - Reset MySQL replica
-   
+    - mysql_reset_source
+    - mysql_reset_replica
 
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Create Agama database
 
-- name: MySQL database
+- name: mysql_database_agama
   community.mysql.mysql_db:
     name: "{{ mysql_database }}"
     login_unix_socket: /var/run/mysqld/mysqld.sock
   notify:
-    - Reset MySQL source
-    - Reset MySQL replica
+    - mysql_reset_source
+    - mysql_reset_replica
 
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Create necessary users
 
-- name: MySQL agama user
+- name: mysql_user_agama
   community.mysql.mysql_user:
     name: "{{ mysql_user }}"
     password: "{{ mysql_password }}"
@@ -58,14 +57,14 @@
     priv: "{{ mysql_database }}.*:ALL"
     login_unix_socket: /var/run/mysqld/mysqld.sock
 
-- name: MySQL backup user
+- name: mysql_user_backup
   community.mysql.mysql_user:
     name: "{{ backup_user }}"
     password: "{{ backup_user_mysql_password }}"
     priv: "{{ mysql_database }}.*:LOCK TABLES,SELECT"
     login_unix_socket: /var/run/mysqld/mysqld.sock
 
-- name: MySQL exporter user
+- name: mysql_user_exporter
   community.mysql.mysql_user:
     name: "{{ mysql_exporter_user }}"
     password: "{{ mysql_exporter_password }}"
@@ -75,7 +74,7 @@
     priv: '*.*:PROCESS,REPLICATION CLIENT'
     login_unix_socket: /var/run/mysqld/mysqld.sock    
 
-- name: MySQL replication user
+- name: mysql_user_replication
   community.mysql.mysql_user:
     name: "{{ mysql_replication_user }}"
     password: "{{ mysql_replication_password }}"
@@ -88,7 +87,7 @@
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Template my.cnf files for users
 
-- name: Template prometheus my.cnf
+- name: mysql_template_my_prometheus
   ansible.builtin.template:
     src: prometheus.my.cnf.j2
     dest: /var/lib/prometheus/.my.cnf
@@ -97,9 +96,9 @@
     mode: '0640' 
   no_log: true
   notify:
-    - Restart MySQL exporter
+    - mysql_restart_exporter
 
-- name: Template backup my.cnf
+- name: mysql_template_my_backup
   ansible.builtin.template:
     src: backup.my.cnf.j2
     dest: "{{ backup_user_home }}/.my.cnf"
@@ -111,7 +110,7 @@
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Backup
 
-- name: Create backup directories
+- name: mysql_directory_backup
   file:
     state: directory
     path: "{{ backup_user_home }}/{{ item }}"
@@ -123,29 +122,29 @@
     - mysql
     - restore
 
-- name: Create backup cron tab
+- name: mysql_template_cron
   template:
     src: mysql-backup.j2
     dest: /etc/cron.d/mysql-backup
 
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Prometheus exporter
-# Note! This task MUST BE AFTER "Template prometheus my.cnf" task
+# Note! This task MUST BE AFTER mysql_template_my_prometheus task
 
-- name: Install MySQL exporter
+- name: mysql_install_exporter
   ansible.builtin.apt:
     name: prometheus-mysqld-exporter 
 
-- name: Copy prometheus-mysqld-exporter
+- name: mysql_copy_exporter_conf
   copy:
     src: prometheus-mysqld-exporter
     dest: /etc/default/prometheus-mysqld-exporter
   notify:
-    - Restart MySQL exporter
+    - mysql_restart_exporter
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Service exporter
 
-- name: Service MySQL exporter
+- name: mysql_service_exporter
   ansible.builtin.service:
     name: prometheus-mysqld-exporter
     state: started

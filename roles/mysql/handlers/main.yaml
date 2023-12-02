@@ -1,14 +1,14 @@
-- name: Restart MySQL
+- name: mysql_restart
   ansible.builtin.service:
     name: mysql
     state: restarted
 
-- name: Restart MySQL exporter
+- name: mysql_restart_exporter
   ansible.builtin.service:
     name: prometheus-mysqld-exporter
     state: restarted
 
-- name: Reset MySQL source
+- name: mysql_reset_source
   community.mysql.mysql_replication:
     mode: "{{ item }}"
     login_unix_socket: /var/run/mysqld/mysqld.sock
@@ -17,7 +17,7 @@
     - resetprimary
   when: inventory_hostname == mysql_host
 
-- name: Reset MySQL replica
+- name: mysql_reset_replica
   community.mysql.mysql_replication:
     mode: "{{ item }}"
     login_unix_socket: /var/run/mysqld/mysqld.sock

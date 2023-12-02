@@ -1,14 +1,14 @@
-- name: Restart InfluxDB
+- name: influxdb_restart_influxdb
   service:
     name: influxdb
     state: restarted
 
-- name: Restart Telegraf
+- name: influxdb_restart_telegraf
   service:
     name: telegraf
     state: restarted
 
-- name: Restart InfluxDB exporter
+- name: influxdb_restart_exporter
   service:
     name: prometheus-influxdb-stats-exporter.service 
     state: restarted

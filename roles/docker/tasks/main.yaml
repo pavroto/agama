@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Install Docker
 
-- name: Install Docker
+- name: docker_install
   apt:
     name: 
       - docker.io
@@ -10,7 +10,7 @@
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Service Docker
 
-- name: Service Docker
+- name: docker_service
   service:
     name: docker
     state: started
