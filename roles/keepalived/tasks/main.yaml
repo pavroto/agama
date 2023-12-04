@@ -1,0 +1,45 @@
+# ---------------------------------------------------------------------------------------------------------------------- #
+# Install Keepalived
+
+- name: keepalived_install
+  apt:
+    name: keepalived
+# ---------------------------------------------------------------------------------------------------------------------- #
+# Create keepalived groups and users
+
+- name: keepalived_user
+  user: 
+    name: keepalived_script
+    shell: /sbin/nologin
+
+# ---------------------------------------------------------------------------------------------------------------------- #
+# Keepalived script
+
+- name: keepalived_copy_script
+  copy:
+    src: keepalived_script
+    dest: /home/keepalived_script/keepalived_script 
+    owner: keepalived_script
+    group: keepalived_script
+    mode: 0744
+# ---------------------------------------------------------------------------------------------------------------------- #
+# Template configuration
+
+- name: keepalived_template_conf
+  template:
+    src: keepalived.conf.j2
+    dest: /etc/keepalived/keepalived.conf
+    mode: '0640'
+  notify:
+    - keepalived_restart
+
+# ---------------------------------------------------------------------------------------------------------------------- #
+# Service keepalived
+
+- name: keepalived_service
+  service:
+    name: keepalived
+    state: started
+
+# ---------------------------------------------------------------------------------------------------------------------- #
+
