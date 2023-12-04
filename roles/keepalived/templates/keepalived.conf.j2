@@ -1,0 +1,42 @@
+{% set original_ip = hostvars[keepalived_host]['ansible_facts']['default_ipv4']['address'] %}
+{% if original_ip.startswith('192.168.42.') %}
+{% set modified_ip = original_ip|regex_replace('192.168.42.', '192.168.100.') %}
+{% elif original_ip.startswith('192.168.43.') %}
+{% set modified_ip = original_ip|regex_replace('192.168.43.', '192.168.101.') %}
+{% else %}
+{% set modified_ip = original_ip %}
+{% endif %}
+global_defs {
+    script_user keepalived_script
+    enable_script_security
+}
+vrrp_script check_haproxy {                 
+    script "/home/keepalived_script/keepalived_script"
+    weight 20                              
+    interval 1               
+}
+vrrp_instance VI_1 {
+        state {% if inventory_hostname == keepalived_host %}MASTER {% else %}BACKUP {% endif %}
+
+	interface {{ hostvars[inventory_hostname]['ansible_facts']['default_ipv4']['alias'] }}
+	virtual_router_id 47
+	priority {% if inventory_hostname == keepalived_host %}{{ keepalived_host_priority }}{% else %}{{ keepalived_backup_priority }}{% endif %}
+
+	advert_int 1
+        authentication {
+              auth_type PASS
+              auth_pass {{ keepalived_password }}
+        }
+        virtual_ipaddress {
+              {{ modified_ip }}/24
+        }
+	unicast_peer {                          
+        	{%- for vm in hostvars %}
+		{%- if vm != inventory_hostname %}	
+		{{ hostvars[vm]['ansible_facts']['default_ipv4']['address'] }}/24
+		{%- endif%}
+		{%- endfor %}}
+	track_script {
+        	check_haproxy
+    	}
+}
