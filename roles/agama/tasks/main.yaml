@@ -24,7 +24,7 @@
     source: build
     build:
       path: /opt/agama
-#  no_log: true
+  no_log: true
 
 - name: agama_container
   community.docker.docker_container:
