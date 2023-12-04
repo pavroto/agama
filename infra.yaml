@@ -4,6 +4,7 @@
     roles: 
         - init
         - docker
+        - keepalived
     tags:
       - i
       - init
