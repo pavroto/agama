@@ -43,6 +43,7 @@ scrape_configs:
       - targets: [
 		{%- if groups['all'] %}
 		{%- for i in groups['all']%} "{{ i }}:9100",
+		"{{ i }}:9177",
 		{%- endfor %}
 		{%- endif %}]
   
