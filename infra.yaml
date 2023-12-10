@@ -25,10 +25,10 @@
       - my
       - mysql
       - mx
-  
   - name: Web servers
     hosts: web_servers
     roles:
+      - haproxy
       - agama
 #      - uwsgi
       - nginx
