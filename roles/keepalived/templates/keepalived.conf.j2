@@ -37,6 +37,6 @@ vrrp_instance VI_1 {
 		{%- endif%}
 		{%- endfor %}}
 	track_script {
-        	check_haproxy
+        	check_haproxy weight 55
     	}
 }
