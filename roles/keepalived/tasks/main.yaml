@@ -42,4 +42,35 @@
     state: started
 
 # ---------------------------------------------------------------------------------------------------------------------- #
+# Install exporter
+
+- name: keepalived_install_exporter
+  apt:
+    deb: https://github.com/mehdy/keepalived-exporter/releases/download/v1.3.2/keepalived-exporter-1.3.2.linux-amd64.deb
+
+# ---------------------------------------------------------------------------------------------------------------------- #
+# Copy prometheus-keepalived-exporter.service
+
+- name: keepalived_copy_exporter_service
+  copy:
+    src: prometheus-keepalived-exporter.service
+    dest: /etc/systemd/system/prometheus-keepalived-exporter.service
+  register: keepalived_copy_exporter_service
+  notify:
+    - keepalived_restart_exporter
+
+# ---------------------------------------------------------------------------------------------------------------------- #
+# Service exporter
+
+- name: keepalived_command_daemon_reload
+  command: systemctl daemon-reload
+  when: keepalived_copy_exporter_service is changed
+
+- name: keepalived_service_exporter
+  service:
+    name: prometheus-keepalived-exporter.service
+    state: started
+
+# ---------------------------------------------------------------------------------------------------------------------- #
+
 
