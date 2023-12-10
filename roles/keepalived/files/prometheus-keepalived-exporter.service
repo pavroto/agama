@@ -1,0 +1,11 @@
+[Unit]
+Description=Keepalived exporter
+Documentation=https://github.com/mehdy/keepalived-exporter
+After=network-online.target
+
+[Service]
+User=root
+ExecStart=/usr/bin/keepalived-exporter --web.listen-address 0.0.0.0:9177
+
+[Install]
+WantedBy=multi-user.target
