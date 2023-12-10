@@ -3,6 +3,7 @@ pavroto-2 ansible_host=193.40.156.67 ansible_port=28522 ansible_user=ubuntu
 
 [web_servers]
 pavroto-1
+pavroto-2
 
 [db_mysql_servers]
 pavroto-1
