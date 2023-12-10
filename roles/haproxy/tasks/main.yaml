@@ -1,0 +1,56 @@
+# ---------------------------------------------------------------------------------------------------------------------- #
+# Install haproxy
+
+- name: haproxy_install
+  apt:
+    name: haproxy
+
+# ---------------------------------------------------------------------------------------------------------------------- #
+# Template configuration files
+
+- name: haproxy_template_cfg
+  template:
+    src: haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+    group: haproxy
+    mode: '0640'
+  notify:
+    - haproxy_restart
+
+# ---------------------------------------------------------------------------------------------------------------------- #
+# Service haproxy
+
+- name: haproxy_service
+  service:
+    name: haproxy
+    state: started
+
+# ---------------------------------------------------------------------------------------------------------------------- #
+# Install exporter
+
+- name: haproxy_install_exporter
+  apt:
+    name: 
+      - prometheus-haproxy-exporter
+
+# ---------------------------------------------------------------------------------------------------------------------- #
+# Copy exporter conf file
+
+- name: haproxy_copy_exporter
+  copy:
+    src: prometheus-haproxy-exporter
+    dest: /etc/default/prometheus-haproxy-exporter
+  notify:
+    - haproxy_restart_exporter
+
+
+# ---------------------------------------------------------------------------------------------------------------------- #
+# Service exporter
+
+- name: haproxy_service_exporter
+  service:
+    name: prometheus-haproxy-exporter
+    state: started
+
+
+# ---------------------------------------------------------------------------------------------------------------------- #
