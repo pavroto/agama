@@ -81,8 +81,8 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
-        "w": 12,
+        "h": 5,
+        "w": 8,
         "x": 0,
         "y": 0
       },
@@ -246,8 +246,8 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 2,
-        "x": 12,
+        "w": 4,
+        "x": 8,
         "y": 0
       },
       "id": 3,
@@ -334,8 +334,8 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 2,
-        "x": 16,
+        "w": 4,
+        "x": 12,
         "y": 0
       },
       "id": 12,
@@ -422,8 +422,8 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 2,
-        "x": 20,
+        "w": 8,
+        "x": 16,
         "y": 0
       },
       "id": 2,
@@ -455,7 +455,7 @@
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "__auto",
+          "legendFormat": "{{instance}}",
           "range": true,
           "refId": "A",
           "useBackend": false
@@ -553,9 +553,9 @@
         ]
       },
       "gridPos": {
-        "h": 13,
+        "h": 19,
         "w": 4,
-        "x": 12,
+        "x": 8,
         "y": 3
       },
       "id": 8,
@@ -622,7 +622,7 @@
       "gridPos": {
         "h": 5,
         "w": 4,
-        "x": 16,
+        "x": 12,
         "y": 3
       },
       "id": 13,
@@ -692,8 +692,8 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 4,
-        "x": 20,
+        "w": 8,
+        "x": 16,
         "y": 3
       },
       "id": 10,
@@ -810,7 +810,7 @@
         "h": 6,
         "w": 4,
         "x": 0,
-        "y": 8
+        "y": 5
       },
       "id": 4,
       "options": {
@@ -907,6 +907,202 @@
           {
             "matcher": {
               "id": "byName",
+              "options": "{instance=\"pavroto-1:9100\", job=\"linux\"}"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "RAM"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 4,
+        "y": 5
+      },
+      "id": 6,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ff0f8d29-bd9d-46b5-9338-5a50a114eb0a"
+          },
+          "editorMode": "code",
+          "expr": " (1 - (node_memory_MemFree_bytes{instance=\"pavroto-1:9100\"} + node_memory_Cached_bytes{instance=\"pavroto-1:9100\"} + node_memory_Buffers_bytes{instance=\"pavroto-1:9100\"}) / node_memory_MemTotal_bytes{instance=\"pavroto-1:9100\"}) * 100",
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "pavroto-1 RAM",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "ff0f8d29-bd9d-46b5-9338-5a50a114eb0a"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "index": 1,
+                  "text": "DOWN"
+                },
+                "1": {
+                  "index": 0,
+                  "text": "UP"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 0
+              },
+              {
+                "color": "dark-green",
+                "value": 1
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 12,
+        "x": 12,
+        "y": 8
+      },
+      "id": 15,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.2.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ff0f8d29-bd9d-46b5-9338-5a50a114eb0a"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "haproxy_up",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "{{instance}}",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "title": "HAProxy",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "ff0f8d29-bd9d-46b5-9338-5a50a114eb0a"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
               "options": " 100 - (avg(rate(node_cpu_seconds_total{mode=\"idle\", instance=\"pavroto-2:9100\"}[5m])) * 100)"
             },
             "properties": [
@@ -921,8 +1117,8 @@
       "gridPos": {
         "h": 6,
         "w": 4,
-        "x": 4,
-        "y": 8
+        "x": 0,
+        "y": 11
       },
       "id": 5,
       "options": {
@@ -1019,114 +1215,6 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "{instance=\"pavroto-1:9100\", job=\"linux\"}"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "RAM"
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 6,
-        "w": 4,
-        "x": 0,
-        "y": 14
-      },
-      "id": 6,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "ff0f8d29-bd9d-46b5-9338-5a50a114eb0a"
-          },
-          "editorMode": "code",
-          "expr": " (1 - (node_memory_MemFree_bytes{instance=\"pavroto-1:9100\"} + node_memory_Cached_bytes{instance=\"pavroto-1:9100\"} + node_memory_Buffers_bytes{instance=\"pavroto-1:9100\"}) / node_memory_MemTotal_bytes{instance=\"pavroto-1:9100\"}) * 100",
-          "instant": false,
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "pavroto-1 RAM",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "ff0f8d29-bd9d-46b5-9338-5a50a114eb0a"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
               "options": "{instance=\"pavroto-2:9100\", job=\"linux\"}"
             },
             "properties": [
@@ -1142,7 +1230,7 @@
         "h": 6,
         "w": 4,
         "x": 4,
-        "y": 14
+        "y": 11
       },
       "id": 7,
       "options": {
@@ -1173,6 +1261,164 @@
       ],
       "title": "pavroto-2 RAM",
       "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "ff0f8d29-bd9d-46b5-9338-5a50a114eb0a"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "index": 1,
+                  "text": "DOWN"
+                },
+                "1": {
+                  "index": 0,
+                  "text": "UP"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 0
+              },
+              {
+                "color": "dark-green",
+                "value": 1
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 12,
+        "x": 12,
+        "y": 11
+      },
+      "id": 16,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.2.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ff0f8d29-bd9d-46b5-9338-5a50a114eb0a"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "haproxy_server_up",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "{{instance}} {{server}}",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "title": "HAProxy Servers",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "ff0f8d29-bd9d-46b5-9338-5a50a114eb0a"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 14
+      },
+      "id": 17,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "10.2.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ff0f8d29-bd9d-46b5-9338-5a50a114eb0a"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "keepalived_vrrp_state",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "{{instance}}",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "title": "Keepalived State",
+      "type": "gauge"
     }
   ],
   "refresh": "5s",
