@@ -3,7 +3,7 @@ server {
 	server_name _;
 
 	location / {
-		proxy_pass http://pavroto-1:{{ agama_port }};
+		proxy_pass http://{{ inventory_hostname }}:{{ agama_port }};
                 proxy_set_header Host $http_host;
 	}
 
