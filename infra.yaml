@@ -4,7 +4,6 @@
     roles: 
         - init
         - docker
-        - keepalived
     tags:
       - i
       - init
@@ -28,6 +27,7 @@
   - name: Web servers
     hosts: web_servers
     roles:
+      - keepalived
       - haproxy
       - agama
 #      - uwsgi
