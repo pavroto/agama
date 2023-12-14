@@ -28,13 +28,14 @@
 
 - name: agama_container
   community.docker.docker_container:
-    name: agama
+    name: "agama-{{ item }}"
     image: agama
     state: started
-    published_ports: "{{ agama_port }}:8000"
+    published_ports: "{{ agama_port + item }}:8000"
     env: 
       AGAMA_DATABASE_URI: mysql+pymysql://{{ mysql_user }}:{{ mysql_password }}@{{ mysql_host }}.{{ domain }}/{{ mysql_database }}
     dns_servers: "{{ hostvars['pavroto-2']['ansible_default_ipv4']['address'] }}"
+  loop: "{{ range(agamas_per_vm) | list }}"
 
   
 # ---------------------------------------------------------------------------------------------------------------------- #
