@@ -26,8 +26,14 @@ defaults
 
 listen my_ha_frontend
     bind :88
-    server agama-1 pavroto-1:80 check
-    server agama-2 pavroto-2:80 check
+    {%- if agamas_per_vm > 1 %}
+    {%- for i in range(agamas_per_vm) %}
+
+    server agama-{{ i }} {{ inventory_hostname }}:{{ agama_port + i }} check
+    {%- endfor%}
+    {%- else %}
+    server agama-0 {{ inventory_hostname }}:80 check
+    {%- endif %}
 
 frontend stats
     mode http
