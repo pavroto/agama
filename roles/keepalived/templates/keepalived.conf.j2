@@ -31,7 +31,7 @@ vrrp_instance VI_1 {
               {{ modified_ip }}/24
         }
 	unicast_peer {                          
-        	{%- for vm in hostvars %}
+        	{%- for vm in groups['web_servers'] %}
 		{%- if vm != inventory_hostname %}	
 		{{ hostvars[vm]['ansible_facts']['default_ipv4']['address'] }}/24
 		{%- endif%}
