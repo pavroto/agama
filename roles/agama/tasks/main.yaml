@@ -36,6 +36,19 @@
       AGAMA_DATABASE_URI: mysql+pymysql://{{ mysql_user }}:{{ mysql_password }}@{{ mysql_host }}.{{ domain }}/{{ mysql_database }}
     dns_servers: "{{ hostvars['pavroto-2']['ansible_default_ipv4']['address'] }}"
   loop: "{{ range(agamas_per_vm) | list }}"
-
   
+- name: agama_container_info
+  community.docker.docker_host_info:
+    containers: yes
+    containers_filters:
+      name: "agama"
+  register: docker_info
+
+- name: agama_container_remove
+  community.docker.docker_container:
+    name: "agama-{{ item }}"
+    state: absent
+  loop: "{% set counter = docker_info.containers | length %}{{ range(counter)[agamas_per_vm:] | list }}" 
+  when: docker_info.containers | length > agamas_per_vm
+
 # ---------------------------------------------------------------------------------------------------------------------- #
