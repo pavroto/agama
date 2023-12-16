@@ -1347,6 +1347,7 @@
           "useBackend": false
         }
       ],
+      "timeFrom": "5s",
       "title": "HAProxy Servers",
       "type": "stat"
     },
@@ -1417,6 +1418,7 @@
           "useBackend": false
         }
       ],
+      "timeFrom": "5s",
       "title": "Keepalived State",
       "type": "gauge"
     }
@@ -1428,7 +1430,7 @@
     "list": []
   },
   "time": {
-    "from": "now-5m",
+    "from": "now-15m",
     "to": "now"
   },
   "timepicker": {},
