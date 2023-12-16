@@ -26,13 +26,12 @@ defaults
 
 listen my_ha_frontend
     bind :88
-    {%- if agamas_per_vm > 1 %}
-    {%- for i in range(agamas_per_vm) %}
-
-    server agama-{{ i }} {{ inventory_hostname }}:{{ agama_port + i }} check
-    {%- endfor%}
-    {%- else %}
-    server agama-0 {{ inventory_hostname }}:80 check
+    {%- if agamas_per_vm > 0 %}
+    {%- for vm in groups['web_servers'] %}
+    {%- for i in range(agamas_per_vm) %}        
+    server agama-{{ vm | regex_search("[0-9]+$") }}-{{ i }} {{ vm }}:{{ agama_port + i }} check
+    {%- endfor %}
+    {%- endfor %}
     {%- endif %}
 
 frontend stats
