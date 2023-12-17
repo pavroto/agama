@@ -4,8 +4,15 @@ acl vmnet {
 {% endfor %}}; 
 {% endif %}
 
+key "transfer.key" {
+	algorithm hmac-sha256;
+	secret "{{ bind_secret }}";
+};
+
 options {
-        directory "/var/lib/bind";
+	dnssec-validation yes;	
+
+        directory "/var/cache/bind";
 
 	{% if public_forwarders %}forwarders {
         {% for i in public_forwarders %}
@@ -15,9 +22,18 @@ options {
 		
 	allow-query { vmnet; };
 	
-        dnssec-validation no;
 };
 
 statistics-channels {
-  inet 127.0.0.1 port 8053 allow { 127.0.0.1; };
+ 	inet 127.0.0.1 port 8053 allow { 127.0.0.1; };
 };
+
+{% for vm in groups['dns_servers'] %}
+{% if inventory_hostname != vm %}
+
+server {{ hostvars[vm]['ansible_default_ipv4']['address'] }} {
+	keys { transfer.key. ;};
+};
+
+{% endif %}
+{% endfor %}
