@@ -43,8 +43,6 @@
     - main
     - syslog
     - mysql
-  notify:
-    - grafana_restart
 
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Create Grafana docker
@@ -56,6 +54,6 @@
     state: started
     volumes: /opt/grafana:/etc/grafana
     published_ports: "{{ grafana_port }}:3000"
-    dns_servers: "{{ hostvars['pavroto-2']['ansible_default_ipv4']['address'] }}"
+    dns_servers: "{{ groups['dns_servers'] | map('extract', hostvars, ['ansible_default_ipv4', 'address']) | join(',') }}"
 
 # ---------------------------------------------------------------------------------------------------------------------- #
