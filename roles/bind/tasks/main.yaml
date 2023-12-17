@@ -13,19 +13,30 @@
   ansible.builtin.template:
     src: named.conf.{{ item }}.j2
     dest: /etc/bind/named.conf.{{ item }}
+    mode: '0640'
   loop:
     - options
     - local
   notify:
     - bind_restart
 
+- name: bind_directory
+  file:
+    path: /var/cache/bind/
+    state: directory
+    owner: bind
+    group: bind
+
 - name: bind_template_domain
   ansible.builtin.template:
     src: domain.db.j2
-    dest: /var/lib/bind/{{ domain }}.db
+    dest: /var/cache/bind/{{ domain }}.db
+    owner: bind
+    group: bind
+    force: false
   notify:
     - bind_restart_rndc
-
+  when: inventory_hostname == bind_host
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Prometheus exporter
 
