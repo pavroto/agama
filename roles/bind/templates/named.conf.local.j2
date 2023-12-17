@@ -1,4 +1,20 @@
 zone "{{ domain }}" {
-	type primary;
+	type {% if inventory_hostname == bind_host %}primary{% else %}secondary{% endif %};
 	file "{{ domain }}.db";
+	{%- if inventory_hostname == bind_host and groups['dns_servers'] | length > 1 %}
+	
+	allow-transfer {
+	{%- for vm in groups['dns_servers'] %}
+	{%- if inventory_hostname != vm %}
+	
+		{{ hostvars[vm]['ansible_default_ipv4']['address'] }};
+	{%- endif %}
+	{%- endfor %}
+	
+	};
+	{%- else %}
+	
+	masters { {{hostvars[bind_host]['ansible_default_ipv4']['address'] }}; };
+	{% endif %}
+
 };
