@@ -81,6 +81,11 @@
   ansible.builtin.apt:
     name: ca-certificates>=20211000*
 
+- name: init_install_pip
+  apt:
+    name:
+      - python3-pip
+
 # ---------------------------------------------------------------------------------------------------------------------- #
 # .bash_aliases
 
@@ -100,6 +105,11 @@
     dest: /etc/resolv.conf
   notify:
     - init_restart_resolved
+
+- name: bind_install_dnspython
+  pip:
+    name:
+      - dnspython
 
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Rsyslog configuration
