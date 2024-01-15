@@ -70,3 +70,4 @@ keepalived_password: !vault |
           3438
 
 agamas_per_vm: 2
+bind_host: "pavroto-1"
