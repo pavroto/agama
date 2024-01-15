@@ -1,11 +1,23 @@
 ---
+  - name: Gather Facts
+    hosts: all
+    roles: 
+      - gather_facts
+    tags:
+      - init
+      - bind
+      - mysql
+      - web
+      - influxdb
+      - monitoring
+      - mx
+
   - name: Initial setup
     hosts: all
     roles: 
         - init
         - docker
     tags:
-      - i
       - init
 
   - name: DNS servers
@@ -13,7 +25,6 @@
     roles:
       - bind
     tags:
-      - b
       - bind
 
   - name: Database MySql
@@ -21,7 +32,6 @@
     roles:
       - mysql
     tags:
-      - my
       - mysql
       - mx
   - name: Web servers
@@ -33,7 +43,6 @@
 #      - uwsgi
       - nginx
     tags:
-      - w
       - web
       - mx
 
@@ -50,7 +59,6 @@
       - prometheus
       - grafana
     tags:
-      - mo
       - monitoring
 
   - name: Pinger
@@ -58,5 +66,4 @@
     roles:
       - pinger
     tags:
-      - p
       - pinger
