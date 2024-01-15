@@ -54,3 +54,19 @@
 
 
 # ---------------------------------------------------------------------------------------------------------------------- #
+# Update DNS records
+
+- name: haproxy_nsupdate
+  community.general.nsupdate:
+    key_name: "nsupdate.key"
+    key_secret: "{{ bind_secret_update }}"
+    key_algorithm: "hmac-sha256"
+    server: "{{ hostvars[bind_host]['ansible_default_ipv4']['address'] }}"
+    record: "lb-{{ inventory_hostname[-1] }}"
+    zone: "{{ domain }}"    
+    type: "CNAME"
+    value: "{{ inventory_hostname  }}"
+    ttl: 604800
+  no_log: true
+
+# ---------------------------------------------------------------------------------------------------------------------- #
