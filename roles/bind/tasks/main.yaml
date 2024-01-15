@@ -29,14 +29,18 @@
 
 - name: bind_template_domain
   ansible.builtin.template:
-    src: domain.db.j2
-    dest: /var/cache/bind/{{ domain }}.db
+    src: "{{ item }}.db.j2"
+    dest: "/var/cache/bind/{{ item }}.db"
     owner: bind
     group: bind
     force: false
+  loop:
+    - pavroto.ttu
+    - ptr
   notify:
     - bind_restart_rndc
   when: inventory_hostname == bind_host
+
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Prometheus exporter
 
