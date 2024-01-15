@@ -13,6 +13,7 @@ pavroto-2
 pavroto-2
 
 [dns_servers]
+pavroto-1
 pavroto-2
 
 [monitor_servers]
