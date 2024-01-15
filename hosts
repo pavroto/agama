@@ -1,5 +1,5 @@
-pavroto-1 ansible_host=193.40.156.67 ansible_port=19422 ansible_user=ubuntu
-pavroto-2 ansible_host=193.40.156.67 ansible_port=16522 ansible_user=ubuntu
+pavroto-1 ansible_host=193.40.156.67 ansible_port=33322 ansible_user=ubuntu
+pavroto-2 ansible_host=193.40.156.67 ansible_port=30022 ansible_user=ubuntu
 
 [web_servers]
 pavroto-1
