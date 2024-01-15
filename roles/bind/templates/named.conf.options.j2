@@ -4,11 +4,6 @@ acl vmnet {
 {% endfor %}}; 
 {% endif %}
 
-key "transfer.key" {
-	algorithm hmac-sha256;
-	secret "{{ bind_secret }}";
-};
-
 options {
 	dnssec-validation yes;	
 
@@ -28,12 +23,4 @@ statistics-channels {
  	inet 127.0.0.1 port 8053 allow { 127.0.0.1; };
 };
 
-{% for vm in groups['dns_servers'] %}
-{% if inventory_hostname != vm %}
 
-server {{ hostvars[vm]['ansible_default_ipv4']['address'] }} {
-	keys { transfer.key. ;};
-};
-
-{% endif %}
-{% endfor %}
