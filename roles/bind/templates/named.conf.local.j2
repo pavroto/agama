@@ -1,20 +1,63 @@
+key "nsupdate.key" {
+	algorithm hmac-sha256;
+	secret "{{ bind_secret_update }}";
+};
+
+key "transfer.key" {
+	algorithm hmac-sha256;
+	secret "{{ bind_secret }}";
+};
+
+
+
 zone "{{ domain }}" {
 	type {% if inventory_hostname == bind_host %}primary{% else %}secondary{% endif %};
 	file "{{ domain }}.db";
 	{%- if inventory_hostname == bind_host and groups['dns_servers'] | length > 1 %}
 	
-	allow-transfer {
-	{%- for vm in groups['dns_servers'] %}
-	{%- if inventory_hostname != vm %}
-	
+	allow-transfer { key transfer.key; };
+	also-notify {
+		{%- for vm in groups['dns_servers'] %}
+		{%- if inventory_hostname != vm %}
+		
 		{{ hostvars[vm]['ansible_default_ipv4']['address'] }};
-	{%- endif %}
-	{%- endfor %}
-	
+		{%- endif %}
+		{%- endfor %}
 	};
+
+	allow-update { key nsupdate.key; };
 	{%- else %}
+
+	masters { {{hostvars[bind_host]['ansible_default_ipv4']['address'] }} key transfer.key; };
+	allow-transfer { none; };
+	allow-query { any; };
+
+	{% endif %}
+
+};
+
+zone "168.192.in-addr.arpa" {
+	type {% if inventory_hostname == bind_host %}primary{% else %}secondary{% endif %};
+	file "ptr.db";
+	{%- if inventory_hostname == bind_host and groups['dns_servers'] | length > 1 %}
 	
-	masters { {{hostvars[bind_host]['ansible_default_ipv4']['address'] }}; };
+	allow-transfer { key transfer.key; };
+	also-notify {
+		{%- for vm in groups['dns_servers'] %}
+		{%- if inventory_hostname != vm %}
+		
+		{{ hostvars[vm]['ansible_default_ipv4']['address'] }};
+		{%- endif %}
+		{%- endfor %}
+	};
+
+	allow-update { key nsupdate.key; };
+	{%- else %}
+
+	masters { {{hostvars[bind_host]['ansible_default_ipv4']['address'] }} key transfer.key; };
+	allow-transfer { none; };
+	allow-query { any; };
+
 	{% endif %}
 
 };
