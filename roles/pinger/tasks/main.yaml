@@ -32,9 +32,9 @@
     path: /etc/pinger/
     state: directory
 
-- name: pinger_copy_conf
-  copy:
-    src: pinger.conf
+- name: pinger_template_conf
+  template:
+    src: pinger.conf.j2
     dest: /etc/pinger/pinger.conf
   notify:
     - pinger_restart
