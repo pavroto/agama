@@ -104,6 +104,7 @@
   service: 
     name: prometheus-influxdb-stats-exporter.service
     state: started
+    enabled: true
 
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Update DNS records
