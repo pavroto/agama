@@ -10,14 +10,15 @@ pavroto-1
 pavroto-2
 
 [db_influxdb_servers]
-pavroto-2
+pavroto-3
 
 [dns_servers]
 pavroto-1
 pavroto-2
+pavroto-3
 
 [monitor_servers]
-pavroto-2
+pavroto-3
 
 [pinger]
-pavroto-1
+pavroto-3
