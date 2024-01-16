@@ -1,5 +1,7 @@
 search {{ domain }}
 {% for vm in groups['dns_servers'] %}
+{% if vm != bind_host %}
 nameserver {{ hostvars[vm]['ansible_default_ipv4']['address'] }} 
+{% endif %}
 {%endfor%}
 nameserver 8.8.8.8
