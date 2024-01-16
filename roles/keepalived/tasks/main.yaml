@@ -41,6 +41,7 @@
   service:
     name: keepalived
     state: started
+    enabled: true
 
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Install exporter
@@ -71,7 +72,6 @@
   service:
     name: prometheus-keepalived-exporter.service
     state: started
+    enabled: true
 
 # ---------------------------------------------------------------------------------------------------------------------- #
-
-
