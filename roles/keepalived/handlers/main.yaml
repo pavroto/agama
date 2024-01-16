@@ -2,8 +2,10 @@
   service:
     name: keepalived
     state: restarted
+    enabled: true
 
 - name: keepalived_restart_exporter
   service:
     name: prometheus-keepalived-exporter.service
     state: restarted
+    enabled: true
