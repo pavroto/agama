@@ -25,9 +25,9 @@
   notify:
     - grafana_restart
 
-- name: grafana_copy_datasource
-  copy:
-    src: "{{ item }}-datasource.yaml"
+- name: grafana_template_datasource
+  template:
+    src: "{{ item }}-datasource.yaml.j2"
     dest: "/opt/grafana/provisioning/datasources/{{ item }}-datasource.yaml"
   loop:
     - prometheus
