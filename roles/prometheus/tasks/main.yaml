@@ -44,6 +44,6 @@
     record: "prometheus"
     zone: "{{ domain }}"
     type: "CNAME"
-    value: "{{ backup_server_ip }}"
+    value: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
     ttl: 604800
   no_log: true
