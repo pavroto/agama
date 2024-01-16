@@ -114,9 +114,9 @@
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Rsyslog configuration
 
-- name: init_copy_telegraf_output
-  copy:
-    src: telegraf-output.conf 
+- name: init_template_telegraf_output
+  template:
+    src: telegraf-output.conf.j2
     dest: /etc/rsyslog.d/telegraf-output.conf
   notify:
     - init_restart_rsyslog
