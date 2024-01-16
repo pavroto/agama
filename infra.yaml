@@ -5,7 +5,6 @@
       - gather_facts
     tags:
       - init
-      - bind
       - mysql
       - web
       - influxdb
@@ -34,6 +33,7 @@
     tags:
       - mysql
       - mx
+
   - name: Web servers
     hosts: web_servers
     roles:
@@ -41,7 +41,6 @@
       - haproxy
       - agama
 #      - uwsgi
-      - nginx
     tags:
       - web
       - mx
@@ -56,6 +55,7 @@
   - name: Monitor servers
     hosts: monitor_servers
     roles:
+      - nginx
       - prometheus
       - grafana
     tags:
