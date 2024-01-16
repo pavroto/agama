@@ -17,8 +17,8 @@
   loop:
     - options
     - local
-  notify:
-    - bind_restart
+  register: template_named
+  no_log: true
 
 - name: bind_directory
   file:
@@ -40,7 +40,13 @@
   notify:
     - bind_restart_rndc
   when: inventory_hostname == bind_host
+  no_log: true
 
+- name: bind_restart
+  service:
+    name: bind9
+    state: restarted
+  when: template_named is changed
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Prometheus exporter
 
@@ -67,7 +73,7 @@
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Update DNS records
 
-- name: bind_nsupdate
+- name: bind_nsupdate_backup
   community.general.nsupdate:
     key_name: "nsupdate.key"
     key_secret: "{{ bind_secret_update }}"
@@ -80,7 +86,7 @@
   when: inventory_hostname == bind_host
   no_log: true
 
-- name: influxdb_nsupdate
+- name: bind_nsupdate_ns
   community.general.nsupdate:
     key_name: "nsupdate.key"
     key_secret: "{{ bind_secret_update }}"
