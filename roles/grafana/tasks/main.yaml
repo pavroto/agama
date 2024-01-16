@@ -54,6 +54,7 @@
     image: grafana/grafana  
     state: started
     volumes: /opt/grafana:/etc/grafana
+    restart_policy: "unless-stopped"
     published_ports: "{{ grafana_port }}:3000"
     dns_servers: "{{ groups['dns_servers'] | map('extract', hostvars, ['ansible_default_ipv4', 'address']) | join(',') }}"
 
