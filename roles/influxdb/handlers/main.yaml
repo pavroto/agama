@@ -2,13 +2,16 @@
   service:
     name: influxdb
     state: restarted
+    enabled: true
 
 - name: influxdb_restart_telegraf
   service:
     name: telegraf
     state: restarted
+    enabled: true
 
 - name: influxdb_restart_exporter
   service:
     name: prometheus-influxdb-stats-exporter.service 
     state: restarted
+    enabled: true
