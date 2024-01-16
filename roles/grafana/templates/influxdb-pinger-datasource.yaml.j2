@@ -1,0 +1,12 @@
+apiVersion: 1
+
+datasources:
+  - name: InfluxDB_pinger
+    type: influxdb
+    uid: "e6f8ad70-fa53-4820-8449-3c51a7f39693"
+    access: proxy
+    user: grafana
+    url: http://{{ inventory_hostname }}:8086
+    jsonData:
+      dbName: pinger
+      httpMode: GET
