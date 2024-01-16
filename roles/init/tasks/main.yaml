@@ -10,9 +10,9 @@
 # ---------------------------------------------------------------------------------------------------------------------- #
 # Hostname
 
-- name: init_hostname
-  ansible.builtin.hostname:
-    name: "{{ inventory_hostname }}"
+#- name: init_hostname
+#  ansible.builtin.hostname:
+#    name: "{{ inventory_hostname }}"
 
 - name: init_template_hostname
   template:
