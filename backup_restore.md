@@ -6,17 +6,18 @@ Install and configure infrastructure with Ansible:
 ## MySQL
 Restore `MySQL` data from the backup:
 
-    $ sudo -u backup bash -c "duplicity --no-encryption restore rsync://pavroto@backup.pavroto.ttu/mysql /home/backup/restore/mysql"
-    $ sudo -u root bash -c "mysql agama < /home/backup/restore/mysql/agama.sql"
+    # Before execution, make sure that /home/backup/restore folder is empty
+    sudo -u backup bash -c "duplicity --no-encryption restore rsync://pavroto@backup.pavroto.ttu/mysql /home/backup/restore/mysql"
+    sudo -u root bash -c "mysql agama < /home/backup/restore/mysql/agama.sql"
 
 ## InfluxDB
 Restore `InfluxDB` data from the backup
 
-    $ sudo -u backup bash -c "duplicity --no-encryption restore rsync://pavroto@backup.pavroto.ttu/influxdb /home/backup/restore/influxdb" 
-    $ sudo systemctl stop telegraf
-    $ influx -execute 'DROP DATABASE telegraf'
-    $ sudo influxd restore -portable -database telegraf /home/backup/restore/influxdb
-    $ sudo systemctl start telegraf
+    sudo -u backup bash -c "duplicity --no-encryption restore rsync://pavroto@backup.pavroto.ttu/influxdb /home/backup/restore/influxdb" 
+    sudo systemctl stop telegraf
+    influx -execute 'DROP DATABASE telegraf'
+    sudo influxd restore -portable -database telegraf /home/backup/restore/influxdb
+    sudo systemctl start telegraf
 
 You may get next error:
 
