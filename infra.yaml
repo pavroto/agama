@@ -4,7 +4,6 @@
     roles: 
       - gather_facts
     tags:
-      - init
       - mysql
       - web
       - influxdb
