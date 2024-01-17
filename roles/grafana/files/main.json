@@ -1250,12 +1250,12 @@
           {
             "matcher": {
               "id": "byName",
-              "options": " 100 - (avg(rate(node_cpu_seconds_total{mode=\"idle\", instance=\"pavroto-2:9100\"}[5m])) * 100)"
+              "options": "{instance=\"pavroto-2:9100\", job=\"linux\"}"
             },
             "properties": [
               {
                 "id": "displayName",
-                "value": "CPU"
+                "value": "RAM"
               }
             ]
           }
@@ -1267,7 +1267,7 @@
         "x": 4,
         "y": 10
       },
-      "id": 21,
+      "id": 7,
       "options": {
         "legend": {
           "calcs": [],
@@ -1286,19 +1286,15 @@
             "type": "prometheus",
             "uid": "ff0f8d29-bd9d-46b5-9338-5a50a114eb0a"
           },
-          "disableTextWrap": false,
           "editorMode": "code",
-          "expr": " 100 - (avg(rate(node_cpu_seconds_total{mode=\"idle\", instance=\"pavroto-2:9100\"}[5m])) * 100)",
-          "fullMetaSearch": false,
-          "includeNullMetadata": true,
+          "expr": " (1 - (node_memory_MemFree_bytes{instance=\"pavroto-2:9100\"} + node_memory_Cached_bytes{instance=\"pavroto-2:9100\"} + node_memory_Buffers_bytes{instance=\"pavroto-2:9100\"}) / node_memory_MemTotal_bytes{instance=\"pavroto-2:9100\"}) * 100",
           "instant": false,
-          "legendFormat": "__auto",
+          "legendFormat": "RAM",
           "range": true,
-          "refId": "A",
-          "useBackend": false
+          "refId": "A"
         }
       ],
-      "title": "pavroto-2 CPU",
+      "title": "pavroto-2 RAM",
       "type": "timeseries"
     },
     {
@@ -1617,12 +1613,12 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "{instance=\"pavroto-2:9100\", job=\"linux\"}"
+              "options": " 100 - (avg(rate(node_cpu_seconds_total{mode=\"idle\", instance=\"pavroto-2:9100\"}[5m])) * 100)"
             },
             "properties": [
               {
                 "id": "displayName",
-                "value": "RAM"
+                "value": "CPU"
               }
             ]
           }
@@ -1634,7 +1630,7 @@
         "x": 4,
         "y": 16
       },
-      "id": 7,
+      "id": 21,
       "options": {
         "legend": {
           "calcs": [],
@@ -1653,15 +1649,19 @@
             "type": "prometheus",
             "uid": "ff0f8d29-bd9d-46b5-9338-5a50a114eb0a"
           },
+          "disableTextWrap": false,
           "editorMode": "code",
           "expr": " (1 - (node_memory_MemFree_bytes{instance=\"pavroto-3:9100\"} + node_memory_Cached_bytes{instance=\"pavroto-3:9100\"} + node_memory_Buffers_bytes{instance=\"pavroto-3:9100\"}) / node_memory_MemTotal_bytes{instance=\"pavroto-3:9100\"}) * 100",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "RAM",
+          "legendFormat": "__auto",
           "range": true,
-          "refId": "A"
+          "refId": "A",
+          "useBackend": false
         }
       ],
-      "title": "pavroto-2 RAM",
+      "title": "pavroto-3 RAM",
       "type": "timeseries"
     },
     {
@@ -1908,6 +1908,6 @@
   "timezone": "",
   "title": "ica0002",
   "uid": "b48dd164-d14f-4905-bd10-c05b148924ee",
-  "version": 2,
+  "version": 1,
   "weekStart": ""
 }
