@@ -1,4 +1,4 @@
-Tue Jan 16 11:38:14 PM UTC 2024
+Wed Jan 17 09:07:51 AM UTC 2024
 + hostname
 ansible-controller
 + ansible-playbook infra.yaml --diff
@@ -6,34 +6,25 @@ ansible-controller
 PLAY [Gather Facts] ************************************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [pavroto-3]
 ok: [pavroto-2]
+ok: [pavroto-3]
 ok: [pavroto-1]
 
 TASK [gather_facts : Gather Facts] *********************************************
-ok: [pavroto-2]
 ok: [pavroto-1]
 ok: [pavroto-3]
+ok: [pavroto-2]
 
 PLAY [Initial setup] ***********************************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [pavroto-1]
 ok: [pavroto-2]
 ok: [pavroto-3]
+ok: [pavroto-1]
 
 TASK [init : init_template_hosts] **********************************************
 --- before: /etc/hosts
-+++ after: /home/anon/.ansible/tmp/ansible-local-9221asjf3cbk/tmpryogcfxa/hosts.j2
-@@ -1,3 +1,4 @@
-+127.0.0.1 pavroto-2
- 127.0.0.1 localhost
- 
- # The following lines are desirable for IPv6 capable hosts
-
-changed: [pavroto-2]
---- before: /etc/hosts
-+++ after: /home/anon/.ansible/tmp/ansible-local-9221asjf3cbk/tmp0m7shddr/hosts.j2
++++ after: /home/anon/.ansible/tmp/ansible-local-1714mjbw3sru/tmphb6f7u5g/hosts.j2
 @@ -1,3 +1,4 @@
 +127.0.0.1 pavroto-3
  127.0.0.1 localhost
@@ -42,7 +33,7 @@ changed: [pavroto-2]
 
 changed: [pavroto-3]
 --- before: /etc/hosts
-+++ after: /home/anon/.ansible/tmp/ansible-local-9221asjf3cbk/tmpb55u8t9d/hosts.j2
++++ after: /home/anon/.ansible/tmp/ansible-local-1714mjbw3sru/tmp66hgn501/hosts.j2
 @@ -1,3 +1,4 @@
 +127.0.0.1 pavroto-1
  127.0.0.1 localhost
@@ -50,11 +41,20 @@ changed: [pavroto-3]
  # The following lines are desirable for IPv6 capable hosts
 
 changed: [pavroto-1]
+--- before: /etc/hosts
++++ after: /home/anon/.ansible/tmp/ansible-local-1714mjbw3sru/tmphh83osci/hosts.j2
+@@ -1,3 +1,4 @@
++127.0.0.1 pavroto-2
+ 127.0.0.1 localhost
+ 
+ # The following lines are desirable for IPv6 capable hosts
+
+changed: [pavroto-2]
 
 TASK [init : init_template_hostname] *******************************************
 ok: [pavroto-1]
-ok: [pavroto-2]
 ok: [pavroto-3]
+ok: [pavroto-2]
 
 TASK [init : init_user_juri] ***************************************************
 changed: [pavroto-2]
@@ -62,8 +62,51 @@ changed: [pavroto-1]
 changed: [pavroto-3]
 
 TASK [init : init_user_roman] **************************************************
-changed: [pavroto-3]
+changed: [pavroto-2]
 changed: [pavroto-1]
+changed: [pavroto-3]
+
+TASK [init : Set authorized key for juri] **************************************
+--- before: /home/juri/.ssh/authorized_keys
++++ after: /home/juri/.ssh/authorized_keys
+@@ -0,0 +1,2 @@
++ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC/PLdlvr9Z8PyzMNsG17kF8PuVFyD+M30RvBe6CBNu+DRjSeKzeougyTVDydsWA/trjDBWQ26nfJmqevJh6woZJudqRCQNfUsF4IuM4C94hzgtTwzyNRtHrI8Pv18pcjJipzPyl5AEW2sqV0ABPDuI8gxcRWfkiF8TLoz2Q65qJe0rag0b9c8XSHyLP0/V9nsH2fjd1GLcCqe2lmKYNJppwN/BYc/D1/yiwMSqTxgK/XCUwJDTloxepjTvlq1P5GGqH8V238AHL/y1khAbXclERC9ropOcUhdDgeWGXCzFyMGd5qUyOgwbnFgMameKSuYptclhwo7MzlygfgGoK6RCyy3xDsnvFOyadWsxXmdnwv851JYLnmeMjMkDlF/NDA3uVKnDVTsDcPyAq+YdSmpI3BDw2MHRFqnWCM2SkW+euQNuTxl7ykrxkKM/U80BXGd1oL4Is7QDNS0y+c1VyJ0Rts5M1StshJakhidUrlqUjyJ/UK8ZuyaTMKgLial2k/k= 
++ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCymJv1IlKRmhxboG4LPbSRGXf+IpHOQkdChFe4d1lyiq1KxQPcG8EI0k/pxWlTTSAmMx/GSlyhd8QNPIxWfaFKwoNTSVavD6w5WADyNkdz8IKjVgMVS2K7Vu5Qz/0p6HJYyNAeUUGMvNSOdAC9Oj5pPhCByO1L5zl+u3AE71vB1dXrUfQ9ZcoOm31uPIf5mgXm++r8ysppjhztFUeBv65IyQPzDJRgudmvclAn0iItrkIHAWnR5TSWxeMioSeF2oZgd8py7mwy3FUZ4f3Ed11kEC+mwtUpu6r7L1ezJ53OMTpiZB5rDXcFVF60E9em+bXnegSKRHjhKPZhVe+ysWTl1I65k0OyAwTViumfMa8emVdZp78i/BGHK5/nDsNYUFeKhzSD2R1Sd6TLDr+lUBGJc/zELNV/an5h2X4ZR1dlJ963UGBTBgQArLHes3i9nU5MS2AUBSmSKw3uc6Xjqnl6ze6fFv5uva/Erk4bOVB5JJGPi7ovnBzWXBB/MkzBKnc= 
+
+changed: [pavroto-1]
+--- before: /home/juri/.ssh/authorized_keys
++++ after: /home/juri/.ssh/authorized_keys
+@@ -0,0 +1,2 @@
++ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC/PLdlvr9Z8PyzMNsG17kF8PuVFyD+M30RvBe6CBNu+DRjSeKzeougyTVDydsWA/trjDBWQ26nfJmqevJh6woZJudqRCQNfUsF4IuM4C94hzgtTwzyNRtHrI8Pv18pcjJipzPyl5AEW2sqV0ABPDuI8gxcRWfkiF8TLoz2Q65qJe0rag0b9c8XSHyLP0/V9nsH2fjd1GLcCqe2lmKYNJppwN/BYc/D1/yiwMSqTxgK/XCUwJDTloxepjTvlq1P5GGqH8V238AHL/y1khAbXclERC9ropOcUhdDgeWGXCzFyMGd5qUyOgwbnFgMameKSuYptclhwo7MzlygfgGoK6RCyy3xDsnvFOyadWsxXmdnwv851JYLnmeMjMkDlF/NDA3uVKnDVTsDcPyAq+YdSmpI3BDw2MHRFqnWCM2SkW+euQNuTxl7ykrxkKM/U80BXGd1oL4Is7QDNS0y+c1VyJ0Rts5M1StshJakhidUrlqUjyJ/UK8ZuyaTMKgLial2k/k= 
++ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCymJv1IlKRmhxboG4LPbSRGXf+IpHOQkdChFe4d1lyiq1KxQPcG8EI0k/pxWlTTSAmMx/GSlyhd8QNPIxWfaFKwoNTSVavD6w5WADyNkdz8IKjVgMVS2K7Vu5Qz/0p6HJYyNAeUUGMvNSOdAC9Oj5pPhCByO1L5zl+u3AE71vB1dXrUfQ9ZcoOm31uPIf5mgXm++r8ysppjhztFUeBv65IyQPzDJRgudmvclAn0iItrkIHAWnR5TSWxeMioSeF2oZgd8py7mwy3FUZ4f3Ed11kEC+mwtUpu6r7L1ezJ53OMTpiZB5rDXcFVF60E9em+bXnegSKRHjhKPZhVe+ysWTl1I65k0OyAwTViumfMa8emVdZp78i/BGHK5/nDsNYUFeKhzSD2R1Sd6TLDr+lUBGJc/zELNV/an5h2X4ZR1dlJ963UGBTBgQArLHes3i9nU5MS2AUBSmSKw3uc6Xjqnl6ze6fFv5uva/Erk4bOVB5JJGPi7ovnBzWXBB/MkzBKnc= 
+
+changed: [pavroto-2]
+--- before: /home/juri/.ssh/authorized_keys
++++ after: /home/juri/.ssh/authorized_keys
+@@ -0,0 +1,2 @@
++ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC/PLdlvr9Z8PyzMNsG17kF8PuVFyD+M30RvBe6CBNu+DRjSeKzeougyTVDydsWA/trjDBWQ26nfJmqevJh6woZJudqRCQNfUsF4IuM4C94hzgtTwzyNRtHrI8Pv18pcjJipzPyl5AEW2sqV0ABPDuI8gxcRWfkiF8TLoz2Q65qJe0rag0b9c8XSHyLP0/V9nsH2fjd1GLcCqe2lmKYNJppwN/BYc/D1/yiwMSqTxgK/XCUwJDTloxepjTvlq1P5GGqH8V238AHL/y1khAbXclERC9ropOcUhdDgeWGXCzFyMGd5qUyOgwbnFgMameKSuYptclhwo7MzlygfgGoK6RCyy3xDsnvFOyadWsxXmdnwv851JYLnmeMjMkDlF/NDA3uVKnDVTsDcPyAq+YdSmpI3BDw2MHRFqnWCM2SkW+euQNuTxl7ykrxkKM/U80BXGd1oL4Is7QDNS0y+c1VyJ0Rts5M1StshJakhidUrlqUjyJ/UK8ZuyaTMKgLial2k/k= 
++ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCymJv1IlKRmhxboG4LPbSRGXf+IpHOQkdChFe4d1lyiq1KxQPcG8EI0k/pxWlTTSAmMx/GSlyhd8QNPIxWfaFKwoNTSVavD6w5WADyNkdz8IKjVgMVS2K7Vu5Qz/0p6HJYyNAeUUGMvNSOdAC9Oj5pPhCByO1L5zl+u3AE71vB1dXrUfQ9ZcoOm31uPIf5mgXm++r8ysppjhztFUeBv65IyQPzDJRgudmvclAn0iItrkIHAWnR5TSWxeMioSeF2oZgd8py7mwy3FUZ4f3Ed11kEC+mwtUpu6r7L1ezJ53OMTpiZB5rDXcFVF60E9em+bXnegSKRHjhKPZhVe+ysWTl1I65k0OyAwTViumfMa8emVdZp78i/BGHK5/nDsNYUFeKhzSD2R1Sd6TLDr+lUBGJc/zELNV/an5h2X4ZR1dlJ963UGBTBgQArLHes3i9nU5MS2AUBSmSKw3uc6Xjqnl6ze6fFv5uva/Erk4bOVB5JJGPi7ovnBzWXBB/MkzBKnc= 
+
+changed: [pavroto-3]
+
+TASK [init : Set authorized key for roman] *************************************
+--- before: /home/roman/.ssh/authorized_keys
++++ after: /home/roman/.ssh/authorized_keys
+@@ -0,0 +1 @@
++ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDFligqCTgPl8lcKVsgHq9K9zEelCfTP+hcuG9tdhHgBoHwlZPilvTmi4veyORSGTuS9x8XwJuDAnAZsT75TFQVbOjp0XqqcpV/jF4ix6mS6kmdJzzruAaYSI6FWit4ZeRz8/XfNOmg2xaPn3A6hWAUAOhpeOiXtKcSZVOIitJOirjjYrK5Sq+cW8pFGjVWpweU46WwKYoPr1EyEN1PqUjDTOU4LvShEK1TF/kZOeRMysPf9lz1JQO6BKEr0oRWaROCMZwuTDlmh9i0LZEwje6e5ADxMyTHp9fgpCV9a4hDOE7EQdmePDtDO9PHjGQD3m060ydOiFbjSI98q0puzEKxpfzcyMEb/ztdiLWOBO5ANOMzADZ9f+D0S3bqHbSlq/pHXJ2aF2DfROKOrIg1ABFcgz4ugaGhQzYmxsKc2SXgzk/D7952k+FP5FxvW5FpX+xgkMGkt2XlLzjpvZO5eH/rHDppO1v+Pr876di5NbiXCC0GL3C80H2dl4QIrpeDtlFIO5spVtMqFBbUcXticNC9C6dXjOL5p5jhLq82tKHlc5Mnx0cyPRHeO8XCkA0MsipMOGy+tIiOPKaO/dDMT7kiYZKYvaNaUrmdB0MISydE8kTknHBVX9b/qOOysHglMJgmfIYP2YWXDVQFWq9hkWFVIS+yPiaEViphRKbTZMBbLQ== 
+
+changed: [pavroto-1]
+--- before: /home/roman/.ssh/authorized_keys
++++ after: /home/roman/.ssh/authorized_keys
+@@ -0,0 +1 @@
++ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDFligqCTgPl8lcKVsgHq9K9zEelCfTP+hcuG9tdhHgBoHwlZPilvTmi4veyORSGTuS9x8XwJuDAnAZsT75TFQVbOjp0XqqcpV/jF4ix6mS6kmdJzzruAaYSI6FWit4ZeRz8/XfNOmg2xaPn3A6hWAUAOhpeOiXtKcSZVOIitJOirjjYrK5Sq+cW8pFGjVWpweU46WwKYoPr1EyEN1PqUjDTOU4LvShEK1TF/kZOeRMysPf9lz1JQO6BKEr0oRWaROCMZwuTDlmh9i0LZEwje6e5ADxMyTHp9fgpCV9a4hDOE7EQdmePDtDO9PHjGQD3m060ydOiFbjSI98q0puzEKxpfzcyMEb/ztdiLWOBO5ANOMzADZ9f+D0S3bqHbSlq/pHXJ2aF2DfROKOrIg1ABFcgz4ugaGhQzYmxsKc2SXgzk/D7952k+FP5FxvW5FpX+xgkMGkt2XlLzjpvZO5eH/rHDppO1v+Pr876di5NbiXCC0GL3C80H2dl4QIrpeDtlFIO5spVtMqFBbUcXticNC9C6dXjOL5p5jhLq82tKHlc5Mnx0cyPRHeO8XCkA0MsipMOGy+tIiOPKaO/dDMT7kiYZKYvaNaUrmdB0MISydE8kTknHBVX9b/qOOysHglMJgmfIYP2YWXDVQFWq9hkWFVIS+yPiaEViphRKbTZMBbLQ== 
+
+changed: [pavroto-3]
+--- before: /home/roman/.ssh/authorized_keys
++++ after: /home/roman/.ssh/authorized_keys
+@@ -0,0 +1 @@
++ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDFligqCTgPl8lcKVsgHq9K9zEelCfTP+hcuG9tdhHgBoHwlZPilvTmi4veyORSGTuS9x8XwJuDAnAZsT75TFQVbOjp0XqqcpV/jF4ix6mS6kmdJzzruAaYSI6FWit4ZeRz8/XfNOmg2xaPn3A6hWAUAOhpeOiXtKcSZVOIitJOirjjYrK5Sq+cW8pFGjVWpweU46WwKYoPr1EyEN1PqUjDTOU4LvShEK1TF/kZOeRMysPf9lz1JQO6BKEr0oRWaROCMZwuTDlmh9i0LZEwje6e5ADxMyTHp9fgpCV9a4hDOE7EQdmePDtDO9PHjGQD3m060ydOiFbjSI98q0puzEKxpfzcyMEb/ztdiLWOBO5ANOMzADZ9f+D0S3bqHbSlq/pHXJ2aF2DfROKOrIg1ABFcgz4ugaGhQzYmxsKc2SXgzk/D7952k+FP5FxvW5FpX+xgkMGkt2XlLzjpvZO5eH/rHDppO1v+Pr876di5NbiXCC0GL3C80H2dl4QIrpeDtlFIO5spVtMqFBbUcXticNC9C6dXjOL5p5jhLq82tKHlc5Mnx0cyPRHeO8XCkA0MsipMOGy+tIiOPKaO/dDMT7kiYZKYvaNaUrmdB0MISydE8kTknHBVX9b/qOOysHglMJgmfIYP2YWXDVQFWq9hkWFVIS+yPiaEViphRKbTZMBbLQ== 
+
 changed: [pavroto-2]
 
 TASK [init : init_install_duplicity] *******************************************
@@ -102,33 +145,33 @@ The following NEW packages will be installed:
 changed: [pavroto-3]
 
 TASK [init : init_user_backup] *************************************************
-changed: [pavroto-1]
-changed: [pavroto-3]
 changed: [pavroto-2]
+changed: [pavroto-3]
+changed: [pavroto-1]
 
 TASK [init : init_template_known_hosts] ****************************************
-changed: [pavroto-3]
 changed: [pavroto-1]
+changed: [pavroto-3]
 changed: [pavroto-2]
 
 TASK [init : init_apt_update] **************************************************
+changed: [pavroto-1]
 changed: [pavroto-3]
 changed: [pavroto-2]
-changed: [pavroto-1]
 
 TASK [init : init_upgrade_ca_certificates] *************************************
 The following packages will be upgraded:
   ca-certificates
 1 upgraded, 0 newly installed, 0 to remove and 268 not upgraded.
+changed: [pavroto-1]
+The following packages will be upgraded:
+  ca-certificates
+1 upgraded, 0 newly installed, 0 to remove and 268 not upgraded.
 changed: [pavroto-3]
 The following packages will be upgraded:
   ca-certificates
 1 upgraded, 0 newly installed, 0 to remove and 268 not upgraded.
 changed: [pavroto-2]
-The following packages will be upgraded:
-  ca-certificates
-1 upgraded, 0 newly installed, 0 to remove and 268 not upgraded.
-changed: [pavroto-1]
 
 TASK [init : init_install_pip] *************************************************
 The following additional packages will be installed:
@@ -256,7 +299,7 @@ changed: [pavroto-2]
 
 TASK [init : init_template_resolv] *********************************************
 --- before: /etc/resolv.conf
-+++ after: /home/anon/.ansible/tmp/ansible-local-9221asjf3cbk/tmpw_i4nawf/resolv.conf.j2
++++ after: /home/anon/.ansible/tmp/ansible-local-1714mjbw3sru/tmp014dkfy6/resolv.conf.j2
 @@ -1,19 +1,4 @@
 -# This file is managed by man:systemd-resolved(8). Do not edit.
 -#
@@ -278,13 +321,41 @@ TASK [init : init_template_resolv] *********************************************
 -options edns0 trust-ad
 -search openstacklocal
 +search pavroto.ttu
-+nameserver 192.168.42.66 
-+nameserver 192.168.42.182 
++nameserver 192.168.43.48 
++nameserver 192.168.43.28 
++nameserver 8.8.8.8
+
+changed: [pavroto-1]
+--- before: /etc/resolv.conf
++++ after: /home/anon/.ansible/tmp/ansible-local-1714mjbw3sru/tmpb2dcz5xj/resolv.conf.j2
+@@ -1,19 +1,4 @@
+-# This file is managed by man:systemd-resolved(8). Do not edit.
+-#
+-# This is a dynamic resolv.conf file for connecting local clients to the
+-# internal DNS stub resolver of systemd-resolved. This file lists all
+-# configured search domains.
+-#
+-# Run "resolvectl status" to see details about the uplink DNS servers
+-# currently in use.
+-#
+-# Third party programs must not access this file directly, but only through the
+-# symlink at /etc/resolv.conf. To manage man:resolv.conf(5) in a different way,
+-# replace this symlink by a static file or a different symlink.
+-#
+-# See man:systemd-resolved.service(8) for details about the supported modes of
+-# operation for /etc/resolv.conf.
+-
+-nameserver 127.0.0.53
+-options edns0 trust-ad
+-search openstacklocal
++search pavroto.ttu
++nameserver 192.168.43.48 
++nameserver 192.168.43.28 
 +nameserver 8.8.8.8
 
 changed: [pavroto-3]
 --- before: /etc/resolv.conf
-+++ after: /home/anon/.ansible/tmp/ansible-local-9221asjf3cbk/tmprdaj5gd8/resolv.conf.j2
++++ after: /home/anon/.ansible/tmp/ansible-local-1714mjbw3sru/tmpjodmm3tw/resolv.conf.j2
 @@ -1,19 +1,4 @@
 -# This file is managed by man:systemd-resolved(8). Do not edit.
 -#
@@ -306,39 +377,11 @@ changed: [pavroto-3]
 -options edns0 trust-ad
 -search openstacklocal
 +search pavroto.ttu
-+nameserver 192.168.42.66 
-+nameserver 192.168.42.182 
++nameserver 192.168.43.48 
++nameserver 192.168.43.28 
 +nameserver 8.8.8.8
 
 changed: [pavroto-2]
---- before: /etc/resolv.conf
-+++ after: /home/anon/.ansible/tmp/ansible-local-9221asjf3cbk/tmpxbz3uvy1/resolv.conf.j2
-@@ -1,19 +1,4 @@
--# This file is managed by man:systemd-resolved(8). Do not edit.
--#
--# This is a dynamic resolv.conf file for connecting local clients to the
--# internal DNS stub resolver of systemd-resolved. This file lists all
--# configured search domains.
--#
--# Run "resolvectl status" to see details about the uplink DNS servers
--# currently in use.
--#
--# Third party programs must not access this file directly, but only through the
--# symlink at /etc/resolv.conf. To manage man:resolv.conf(5) in a different way,
--# replace this symlink by a static file or a different symlink.
--#
--# See man:systemd-resolved.service(8) for details about the supported modes of
--# operation for /etc/resolv.conf.
--
--nameserver 127.0.0.53
--options edns0 trust-ad
--search openstacklocal
-+search pavroto.ttu
-+nameserver 192.168.42.66 
-+nameserver 192.168.42.182 
-+nameserver 8.8.8.8
-
-changed: [pavroto-1]
 
 TASK [init : bind_install_dnspython] *******************************************
 changed: [pavroto-3]
@@ -347,7 +390,18 @@ changed: [pavroto-2]
 
 TASK [init : init_template_telegraf_output] ************************************
 --- before
-+++ after: /home/anon/.ansible/tmp/ansible-local-9221asjf3cbk/tmpw3v7m85f/telegraf-output.conf.j2
++++ after: /home/anon/.ansible/tmp/ansible-local-1714mjbw3sru/tmpmfa6ydd7/telegraf-output.conf.j2
+@@ -0,0 +1,6 @@
++$ActionQueueType LinkedList # use asynchronous processing
++$ActionQueueFileName srvrfwd # set file name, also enables disk mode
++$ActionResumeRetryCount -1 # infinite retries on insert failure
++$ActionQueueSaveOnShutdown on # save in-memory data if rsyslog shuts down
++
++*.* @pavroto-3:6514;RSYSLOG_SyslogProtocol23Format
+
+changed: [pavroto-1]
+--- before
++++ after: /home/anon/.ansible/tmp/ansible-local-1714mjbw3sru/tmpgfm5cn8v/telegraf-output.conf.j2
 @@ -0,0 +1,6 @@
 +$ActionQueueType LinkedList # use asynchronous processing
 +$ActionQueueFileName srvrfwd # set file name, also enables disk mode
@@ -358,7 +412,7 @@ TASK [init : init_template_telegraf_output] ************************************
 
 changed: [pavroto-3]
 --- before
-+++ after: /home/anon/.ansible/tmp/ansible-local-9221asjf3cbk/tmptacw5aio/telegraf-output.conf.j2
++++ after: /home/anon/.ansible/tmp/ansible-local-1714mjbw3sru/tmpfg9f2snl/telegraf-output.conf.j2
 @@ -0,0 +1,6 @@
 +$ActionQueueType LinkedList # use asynchronous processing
 +$ActionQueueFileName srvrfwd # set file name, also enables disk mode
@@ -368,17 +422,6 @@ changed: [pavroto-3]
 +*.* @pavroto-3:6514;RSYSLOG_SyslogProtocol23Format
 
 changed: [pavroto-2]
---- before
-+++ after: /home/anon/.ansible/tmp/ansible-local-9221asjf3cbk/tmpcog88hau/telegraf-output.conf.j2
-@@ -0,0 +1,6 @@
-+$ActionQueueType LinkedList # use asynchronous processing
-+$ActionQueueFileName srvrfwd # set file name, also enables disk mode
-+$ActionResumeRetryCount -1 # infinite retries on insert failure
-+$ActionQueueSaveOnShutdown on # save in-memory data if rsyslog shuts down
-+
-+*.* @pavroto-3:6514;RSYSLOG_SyslogProtocol23Format
-
-changed: [pavroto-1]
 
 TASK [init : init_apt_node_exporter] *******************************************
 The following additional packages will be installed:
@@ -391,7 +434,7 @@ The following NEW packages will be installed:
   moreutils prometheus-node-exporter prometheus-node-exporter-collectors
   smartmontools
 0 upgraded, 8 newly installed, 0 to remove and 257 not upgraded.
-changed: [pavroto-1]
+changed: [pavroto-3]
 The following additional packages will be installed:
   libio-pty-perl libipc-run-perl libtime-duration-perl libtimedate-perl
   moreutils prometheus-node-exporter-collectors smartmontools
@@ -402,7 +445,7 @@ The following NEW packages will be installed:
   moreutils prometheus-node-exporter prometheus-node-exporter-collectors
   smartmontools
 0 upgraded, 8 newly installed, 0 to remove and 257 not upgraded.
-changed: [pavroto-3]
+changed: [pavroto-1]
 The following additional packages will be installed:
   libio-pty-perl libipc-run-perl libtime-duration-perl libtimedate-perl
   moreutils prometheus-node-exporter-collectors smartmontools
@@ -416,9 +459,9 @@ The following NEW packages will be installed:
 changed: [pavroto-2]
 
 TASK [init : init_service_node_exporter] ***************************************
-ok: [pavroto-2]
 ok: [pavroto-1]
 ok: [pavroto-3]
+ok: [pavroto-2]
 
 TASK [docker : docker_install] *************************************************
 The following additional packages will be installed:
@@ -431,7 +474,7 @@ The following NEW packages will be installed:
   bridge-utils containerd dns-root-data dnsmasq-base docker.io libidn11 pigz
   python3-docker python3-websocket runc ubuntu-fan
 0 upgraded, 11 newly installed, 0 to remove and 257 not upgraded.
-changed: [pavroto-2]
+changed: [pavroto-3]
 The following additional packages will be installed:
   bridge-utils containerd dns-root-data dnsmasq-base libidn11 pigz
   python3-websocket runc ubuntu-fan
@@ -453,34 +496,34 @@ The following NEW packages will be installed:
   bridge-utils containerd dns-root-data dnsmasq-base docker.io libidn11 pigz
   python3-docker python3-websocket runc ubuntu-fan
 0 upgraded, 11 newly installed, 0 to remove and 257 not upgraded.
-changed: [pavroto-3]
+changed: [pavroto-2]
 
 TASK [docker : docker_service] *************************************************
+ok: [pavroto-3]
 ok: [pavroto-1]
 ok: [pavroto-2]
-ok: [pavroto-3]
 
 RUNNING HANDLER [init : init_restart_resolved] *********************************
+changed: [pavroto-3]
 changed: [pavroto-1]
 changed: [pavroto-2]
-changed: [pavroto-3]
 
 RUNNING HANDLER [init : init_restart_rsyslog] **********************************
 changed: [pavroto-1]
-changed: [pavroto-2]
 changed: [pavroto-3]
+changed: [pavroto-2]
 
 RUNNING HANDLER [init : init_command_chown_backup_directory] *******************
-changed: [pavroto-2]
-changed: [pavroto-1]
 changed: [pavroto-3]
+changed: [pavroto-1]
+changed: [pavroto-2]
 
 PLAY [DNS servers] *************************************************************
 
 TASK [Gathering Facts] *********************************************************
+ok: [pavroto-2]
 ok: [pavroto-1]
 ok: [pavroto-3]
-ok: [pavroto-2]
 
 TASK [bind : bind_install] *****************************************************
 The following additional packages will be installed:
@@ -502,7 +545,7 @@ The following NEW packages will be installed:
 The following packages will be upgraded:
   bind9-dnsutils bind9-libs
 2 upgraded, 3 newly installed, 0 to remove and 255 not upgraded.
-changed: [pavroto-2]
+changed: [pavroto-1]
 The following additional packages will be installed:
   bind9-dnsutils bind9-libs bind9-utils python3-ply
 Suggested packages:
@@ -512,18 +555,18 @@ The following NEW packages will be installed:
 The following packages will be upgraded:
   bind9-dnsutils bind9-libs
 2 upgraded, 3 newly installed, 0 to remove and 255 not upgraded.
-changed: [pavroto-1]
+changed: [pavroto-2]
 
 TASK [bind : bind_template_named] **********************************************
+changed: [pavroto-3] => (item=None)
 changed: [pavroto-2] => (item=None)
 changed: [pavroto-1] => (item=None)
 changed: [pavroto-3] => (item=None)
+changed: [pavroto-3]
 changed: [pavroto-2] => (item=None)
 changed: [pavroto-2]
 changed: [pavroto-1] => (item=None)
 changed: [pavroto-1]
-changed: [pavroto-3] => (item=None)
-changed: [pavroto-3]
 
 TASK [bind : bind_directory] ***************************************************
 --- before
@@ -535,7 +578,7 @@ TASK [bind : bind_directory] ***************************************************
      "path": "/var/cache/bind/"
  }
 
-changed: [pavroto-3]
+changed: [pavroto-1]
 --- before
 +++ after
 @@ -1,4 +1,4 @@
@@ -545,7 +588,7 @@ changed: [pavroto-3]
      "path": "/var/cache/bind/"
  }
 
-changed: [pavroto-1]
+changed: [pavroto-3]
 --- before
 +++ after
 @@ -1,4 +1,4 @@
@@ -569,33 +612,33 @@ changed: [pavroto-3] => (item=None)
 changed: [pavroto-3]
 
 TASK [bind : bind_restart] *****************************************************
-changed: [pavroto-3]
 changed: [pavroto-2]
+changed: [pavroto-3]
 changed: [pavroto-1]
 
 TASK [bind : bind_install_exporter] ********************************************
 The following NEW packages will be installed:
   prometheus-bind-exporter
 0 upgraded, 1 newly installed, 0 to remove and 255 not upgraded.
-changed: [pavroto-2]
-The following NEW packages will be installed:
-  prometheus-bind-exporter
-0 upgraded, 1 newly installed, 0 to remove and 255 not upgraded.
 changed: [pavroto-1]
 The following NEW packages will be installed:
   prometheus-bind-exporter
 0 upgraded, 1 newly installed, 0 to remove and 255 not upgraded.
 changed: [pavroto-3]
+The following NEW packages will be installed:
+  prometheus-bind-exporter
+0 upgraded, 1 newly installed, 0 to remove and 255 not upgraded.
+changed: [pavroto-2]
 
 TASK [bind : bind_service] *****************************************************
+ok: [pavroto-1]
 ok: [pavroto-2]
 ok: [pavroto-3]
-ok: [pavroto-1]
 
 TASK [bind : bind_service_exporter] ********************************************
-ok: [pavroto-2]
 ok: [pavroto-1]
 ok: [pavroto-3]
+ok: [pavroto-2]
 
 TASK [bind : bind_nsupdate_backup] *********************************************
 skipping: [pavroto-1]
@@ -603,9 +646,9 @@ skipping: [pavroto-2]
 changed: [pavroto-3]
 
 TASK [bind : bind_nsupdate_ns] *************************************************
-changed: [pavroto-2]
 changed: [pavroto-1]
 changed: [pavroto-3]
+changed: [pavroto-2]
 
 RUNNING HANDLER [bind : bind_restart_rndc] *************************************
 changed: [pavroto-3]
@@ -613,8 +656,8 @@ changed: [pavroto-3]
 PLAY [Database MySql] **********************************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [pavroto-2]
 ok: [pavroto-1]
+ok: [pavroto-2]
 
 TASK [mysql : mysql_install] ***************************************************
 The following additional packages will be installed:
@@ -635,7 +678,7 @@ The following NEW packages will be installed:
   mecab-utils mysql-client-8.0 mysql-client-core-8.0 mysql-common mysql-server
   mysql-server-8.0 mysql-server-core-8.0 python3-pymysql
 0 upgraded, 25 newly installed, 0 to remove and 255 not upgraded.
-changed: [pavroto-2]
+changed: [pavroto-1]
 The following additional packages will be installed:
   libcgi-fast-perl libcgi-pm-perl libencode-locale-perl libevent-core-2.1-7
   libevent-pthreads-2.1-7 libfcgi-perl libhtml-parser-perl libhtml-tagset-perl
@@ -654,7 +697,7 @@ The following NEW packages will be installed:
   mecab-utils mysql-client-8.0 mysql-client-core-8.0 mysql-common mysql-server
   mysql-server-8.0 mysql-server-core-8.0 python3-pymysql
 0 upgraded, 25 newly installed, 0 to remove and 255 not upgraded.
-changed: [pavroto-1]
+changed: [pavroto-2]
 
 TASK [mysql : mysql_service] ***************************************************
 ok: [pavroto-2]
@@ -662,77 +705,77 @@ ok: [pavroto-1]
 
 TASK [mysql : mysql_template_override] *****************************************
 --- before
-+++ after: /home/anon/.ansible/tmp/ansible-local-9221asjf3cbk/tmp4106v7is/override.cnf
++++ after: /home/anon/.ansible/tmp/ansible-local-1714mjbw3sru/tmpqybmtqfu/override.cnf
 @@ -0,0 +1,6 @@
 +[mysqld]
 +bind-address = 0.0.0.0
 +log-bin = /var/log/mysql/mysql-bin.log
 +relay-log = /var/log/mysql/mysql-relay.log
 +replicate-do-db = agama
-+server-id = 66
-
-changed: [pavroto-1]
---- before
-+++ after: /home/anon/.ansible/tmp/ansible-local-9221asjf3cbk/tmpkmw4ztjf/override.cnf
-@@ -0,0 +1,6 @@
-+[mysqld]
-+bind-address = 0.0.0.0
-+log-bin = /var/log/mysql/mysql-bin.log
-+relay-log = /var/log/mysql/mysql-relay.log
-+replicate-do-db = agama
-+server-id = 182
++server-id = 284
 
 changed: [pavroto-2]
+--- before
++++ after: /home/anon/.ansible/tmp/ansible-local-1714mjbw3sru/tmpqt2nqcpu/override.cnf
+@@ -0,0 +1,6 @@
++[mysqld]
++bind-address = 0.0.0.0
++log-bin = /var/log/mysql/mysql-bin.log
++relay-log = /var/log/mysql/mysql-relay.log
++replicate-do-db = agama
++server-id = 304
+
+changed: [pavroto-1]
 
 TASK [mysql : mysql_variables] *************************************************
 changed: [pavroto-1]
 changed: [pavroto-2]
 
 TASK [mysql : mysql_database_agama] ********************************************
-changed: [pavroto-2]
 changed: [pavroto-1]
+changed: [pavroto-2]
 
 TASK [mysql : mysql_user_agama] ************************************************
-changed: [pavroto-1]
 changed: [pavroto-2]
+changed: [pavroto-1]
 
 TASK [mysql : mysql_user_backup] ***********************************************
-changed: [pavroto-2]
 changed: [pavroto-1]
+changed: [pavroto-2]
 
 TASK [mysql : mysql_user_exporter] *********************************************
-changed: [pavroto-2]
 changed: [pavroto-1]
+changed: [pavroto-2]
 
 TASK [mysql : mysql_user_replication] ******************************************
-changed: [pavroto-2]
 changed: [pavroto-1]
+changed: [pavroto-2]
 
 TASK [mysql : mysql_template_my_prometheus] ************************************
-changed: [pavroto-1]
 changed: [pavroto-2]
+changed: [pavroto-1]
 
 TASK [mysql : mysql_template_my_backup] ****************************************
-changed: [pavroto-2]
 changed: [pavroto-1]
+changed: [pavroto-2]
 
 TASK [mysql : mysql_directory_backup] ******************************************
+changed: [pavroto-1] => (item=None)
 changed: [pavroto-2] => (item=None)
-changed: [pavroto-1] => (item=None)
-changed: [pavroto-1] => (item=None)
-changed: [pavroto-1]
 changed: [pavroto-2] => (item=None)
 changed: [pavroto-2]
+changed: [pavroto-1] => (item=None)
+changed: [pavroto-1]
 
 TASK [mysql : mysql_template_cron] *********************************************
 --- before
-+++ after: /home/anon/.ansible/tmp/ansible-local-9221asjf3cbk/tmpfv0loab2/mysql-backup.j2
++++ after: /home/anon/.ansible/tmp/ansible-local-1714mjbw3sru/tmp9row36vt/mysql-backup.j2
 @@ -0,0 +1 @@
 +
 
 changed: [pavroto-2]
 --- before
-+++ after: /home/anon/.ansible/tmp/ansible-local-9221asjf3cbk/tmp5192kp_k/mysql-backup.j2
++++ after: /home/anon/.ansible/tmp/ansible-local-1714mjbw3sru/tmpfl_et9zw/mysql-backup.j2
 @@ -0,0 +1,3 @@
 +0 0 * * *   backup	mysqldump agama > /home/backup/mysql/agama.sql
 +5 0 * * 0  backup  duplicity --no-encryption full /home/backup/mysql/ rsync://pavroto@backup.pavroto.ttu/mysql
@@ -746,13 +789,13 @@ The following additional packages will be installed:
 The following NEW packages will be installed:
   daemon prometheus-mysqld-exporter
 0 upgraded, 2 newly installed, 0 to remove and 255 not upgraded.
-changed: [pavroto-2]
+changed: [pavroto-1]
 The following additional packages will be installed:
   daemon
 The following NEW packages will be installed:
   daemon prometheus-mysqld-exporter
 0 upgraded, 2 newly installed, 0 to remove and 255 not upgraded.
-changed: [pavroto-1]
+changed: [pavroto-2]
 
 TASK [mysql : mysql_copy_exporter_conf] ****************************************
 --- before: /etc/default/prometheus-mysqld-exporter
@@ -880,7 +923,7 @@ TASK [mysql : mysql_copy_exporter_conf] ****************************************
 -#       "logger:syslog?appname=bob&local=7" or "logger:stdout?json=true"
 +ARGS="--collect.slave_status"
 
-changed: [pavroto-1]
+changed: [pavroto-2]
 --- before: /etc/default/prometheus-mysqld-exporter
 +++ after: /home/anon/ansible-venv/ica0002/roles/mysql/files/prometheus-mysqld-exporter
 @@ -1,120 +1 @@
@@ -1006,23 +1049,23 @@ changed: [pavroto-1]
 -#       "logger:syslog?appname=bob&local=7" or "logger:stdout?json=true"
 +ARGS="--collect.slave_status"
 
-changed: [pavroto-2]
+changed: [pavroto-1]
 
 TASK [mysql : mysql_service_exporter] ******************************************
 ok: [pavroto-2]
 ok: [pavroto-1]
 
 TASK [mysql : mysql_nsupdate] **************************************************
-changed: [pavroto-1]
 changed: [pavroto-2]
+changed: [pavroto-1]
 
 RUNNING HANDLER [mysql : mysql_restart] ****************************************
 changed: [pavroto-2]
 changed: [pavroto-1]
 
 RUNNING HANDLER [mysql : mysql_restart_exporter] *******************************
-changed: [pavroto-1]
 changed: [pavroto-2]
+changed: [pavroto-1]
 
 RUNNING HANDLER [mysql : mysql_reset_source] ***********************************
 skipping: [pavroto-1] => (item=stopreplica) 
@@ -1056,7 +1099,7 @@ The following NEW packages will be installed:
   ipvsadm keepalived libmysqlclient21 libnl-3-200 libnl-genl-3-200
   libsensors-config libsensors5 libsnmp-base libsnmp35
 0 upgraded, 9 newly installed, 0 to remove and 255 not upgraded.
-changed: [pavroto-2]
+changed: [pavroto-1]
 The following additional packages will be installed:
   ipvsadm libmysqlclient21 libnl-3-200 libnl-genl-3-200 libsensors-config
   libsensors5 libsnmp-base libsnmp35
@@ -1066,11 +1109,11 @@ The following NEW packages will be installed:
   ipvsadm keepalived libmysqlclient21 libnl-3-200 libnl-genl-3-200
   libsensors-config libsensors5 libsnmp-base libsnmp35
 0 upgraded, 9 newly installed, 0 to remove and 255 not upgraded.
-changed: [pavroto-1]
+changed: [pavroto-2]
 
 TASK [keepalived : keepalived_user] ********************************************
-changed: [pavroto-2]
 changed: [pavroto-1]
+changed: [pavroto-2]
 
 TASK [keepalived : keepalived_copy_script] *************************************
 --- before
@@ -1079,14 +1122,14 @@ TASK [keepalived : keepalived_copy_script] *************************************
 +#!/bin/bash
 +ss -ntl | grep -q ':88 '
 
-changed: [pavroto-2]
+changed: [pavroto-1]
 --- before
 +++ after: /home/anon/ansible-venv/ica0002/roles/keepalived/files/keepalived_script
 @@ -0,0 +1,2 @@
 +#!/bin/bash
 +ss -ntl | grep -q ':88 '
 
-changed: [pavroto-1]
+changed: [pavroto-2]
 
 TASK [keepalived : keepalived_template_conf] ***********************************
 changed: [pavroto-1]
@@ -1099,16 +1142,16 @@ changed: [pavroto-2]
 TASK [keepalived : keepalived_install_exporter] ********************************
 Selecting previously unselected package keepalived-exporter.
 (Reading database ... 71717 files and directories currently installed.)
-Preparing to unpack .../keepalived-exporter-1.3.2.linux-amd64o_rld6i6.deb ...
-Unpacking keepalived-exporter (1.3.2) ...
-Setting up keepalived-exporter (1.3.2) ...
-changed: [pavroto-2]
-Selecting previously unselected package keepalived-exporter.
-(Reading database ... 71717 files and directories currently installed.)
-Preparing to unpack .../keepalived-exporter-1.3.2.linux-amd64q4ne1lro.deb ...
+Preparing to unpack .../keepalived-exporter-1.3.2.linux-amd64r3167wbw.deb ...
 Unpacking keepalived-exporter (1.3.2) ...
 Setting up keepalived-exporter (1.3.2) ...
 changed: [pavroto-1]
+Selecting previously unselected package keepalived-exporter.
+(Reading database ... 71717 files and directories currently installed.)
+Preparing to unpack .../keepalived-exporter-1.3.2.linux-amd64xc9m4mlz.deb ...
+Unpacking keepalived-exporter (1.3.2) ...
+Setting up keepalived-exporter (1.3.2) ...
+changed: [pavroto-2]
 
 TASK [keepalived : keepalived_copy_exporter_service] ***************************
 --- before
@@ -1126,7 +1169,7 @@ TASK [keepalived : keepalived_copy_exporter_service] ***************************
 +[Install]
 +WantedBy=multi-user.target
 
-changed: [pavroto-2]
+changed: [pavroto-1]
 --- before
 +++ after: /home/anon/ansible-venv/ica0002/roles/keepalived/files/prometheus-keepalived-exporter.service
 @@ -0,0 +1,11 @@
@@ -1142,15 +1185,15 @@ changed: [pavroto-2]
 +[Install]
 +WantedBy=multi-user.target
 
-changed: [pavroto-1]
+changed: [pavroto-2]
 
 TASK [keepalived : keepalived_command_daemon_reload] ***************************
 changed: [pavroto-1]
 changed: [pavroto-2]
 
 TASK [keepalived : keepalived_service_exporter] ********************************
-changed: [pavroto-2]
 changed: [pavroto-1]
+changed: [pavroto-2]
 
 TASK [haproxy : haproxy_install] ***********************************************
 The following additional packages will be installed:
@@ -1160,7 +1203,7 @@ Suggested packages:
 The following NEW packages will be installed:
   haproxy liblua5.3-0
 0 upgraded, 2 newly installed, 0 to remove and 255 not upgraded.
-changed: [pavroto-2]
+changed: [pavroto-1]
 The following additional packages will be installed:
   liblua5.3-0
 Suggested packages:
@@ -1168,11 +1211,49 @@ Suggested packages:
 The following NEW packages will be installed:
   haproxy liblua5.3-0
 0 upgraded, 2 newly installed, 0 to remove and 255 not upgraded.
-changed: [pavroto-1]
+changed: [pavroto-2]
 
 TASK [haproxy : haproxy_template_cfg] ******************************************
 --- before: /etc/haproxy/haproxy.cfg
-+++ after: /home/anon/.ansible/tmp/ansible-local-9221asjf3cbk/tmpcghafinu/haproxy.cfg.j2
++++ after: /home/anon/.ansible/tmp/ansible-local-1714mjbw3sru/tmp8rs0blan/haproxy.cfg.j2
+@@ -7,15 +7,6 @@
+ 	user haproxy
+ 	group haproxy
+ 	daemon
+-
+-	# Default SSL material locations
+-	ca-base /etc/ssl/certs
+-	crt-base /etc/ssl/private
+-
+-	# See: https://ssl-config.mozilla.org/#server=haproxy&server-version=2.0.3&config=intermediate
+-        ssl-default-bind-ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384
+-        ssl-default-bind-ciphersuites TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256
+-        ssl-default-bind-options ssl-min-ver TLSv1.2 no-tls-tickets
+ 
+ defaults
+ 	log	global
+@@ -32,3 +23,17 @@
+ 	errorfile 502 /etc/haproxy/errors/502.http
+ 	errorfile 503 /etc/haproxy/errors/503.http
+ 	errorfile 504 /etc/haproxy/errors/504.http
++
++listen my_ha_frontend
++    bind :88        
++    server agama-1-0 pavroto-1:8001 check        
++    server agama-1-1 pavroto-1:8002 check        
++    server agama-2-0 pavroto-2:8001 check        
++    server agama-2-1 pavroto-2:8002 check
++frontend stats
++    mode http
++    bind *:5000
++    stats enable
++    stats uri /stats
++    stats refresh 10s
++    stats admin if LOCALHOST
+
+changed: [pavroto-1]
+--- before: /etc/haproxy/haproxy.cfg
++++ after: /home/anon/.ansible/tmp/ansible-local-1714mjbw3sru/tmpw_sz7af5/haproxy.cfg.j2
 @@ -7,15 +7,6 @@
  	user haproxy
  	group haproxy
@@ -1209,48 +1290,10 @@ TASK [haproxy : haproxy_template_cfg] ******************************************
 +    stats admin if LOCALHOST
 
 changed: [pavroto-2]
---- before: /etc/haproxy/haproxy.cfg
-+++ after: /home/anon/.ansible/tmp/ansible-local-9221asjf3cbk/tmpi75bq0bn/haproxy.cfg.j2
-@@ -7,15 +7,6 @@
- 	user haproxy
- 	group haproxy
- 	daemon
--
--	# Default SSL material locations
--	ca-base /etc/ssl/certs
--	crt-base /etc/ssl/private
--
--	# See: https://ssl-config.mozilla.org/#server=haproxy&server-version=2.0.3&config=intermediate
--        ssl-default-bind-ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384
--        ssl-default-bind-ciphersuites TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256
--        ssl-default-bind-options ssl-min-ver TLSv1.2 no-tls-tickets
- 
- defaults
- 	log	global
-@@ -32,3 +23,17 @@
- 	errorfile 502 /etc/haproxy/errors/502.http
- 	errorfile 503 /etc/haproxy/errors/503.http
- 	errorfile 504 /etc/haproxy/errors/504.http
-+
-+listen my_ha_frontend
-+    bind :88        
-+    server agama-1-0 pavroto-1:8001 check        
-+    server agama-1-1 pavroto-1:8002 check        
-+    server agama-2-0 pavroto-2:8001 check        
-+    server agama-2-1 pavroto-2:8002 check
-+frontend stats
-+    mode http
-+    bind *:5000
-+    stats enable
-+    stats uri /stats
-+    stats refresh 10s
-+    stats admin if LOCALHOST
-
-changed: [pavroto-1]
 
 TASK [haproxy : haproxy_service] ***********************************************
-ok: [pavroto-2]
 ok: [pavroto-1]
+ok: [pavroto-2]
 
 TASK [haproxy : haproxy_install_exporter] **************************************
 The following NEW packages will be installed:
@@ -1347,12 +1390,12 @@ changed: [pavroto-1]
 changed: [pavroto-2]
 
 TASK [haproxy : haproxy_service_exporter] **************************************
-ok: [pavroto-2]
 ok: [pavroto-1]
+ok: [pavroto-2]
 
 TASK [haproxy : haproxy_nsupdate] **********************************************
-changed: [pavroto-1]
 changed: [pavroto-2]
+changed: [pavroto-1]
 
 TASK [agama : agama_directory_create] ******************************************
 --- before
@@ -1377,8 +1420,8 @@ changed: [pavroto-1]
 changed: [pavroto-2]
 
 TASK [agama : agama_download] **************************************************
-changed: [pavroto-1] => (item=Dockerfile)
 changed: [pavroto-2] => (item=Dockerfile)
+changed: [pavroto-1] => (item=Dockerfile)
 changed: [pavroto-1] => (item=agama.py)
 changed: [pavroto-2] => (item=agama.py)
 
@@ -1447,12 +1490,12 @@ changed: [pavroto-1]
 changed: [pavroto-2]
 
 RUNNING HANDLER [keepalived : keepalived_restart_exporter] *********************
-changed: [pavroto-1]
 changed: [pavroto-2]
+changed: [pavroto-1]
 
 RUNNING HANDLER [haproxy : haproxy_restart] ************************************
-changed: [pavroto-2]
 changed: [pavroto-1]
+changed: [pavroto-2]
 
 RUNNING HANDLER [haproxy : haproxy_restart_exporter] ***************************
 changed: [pavroto-2]
@@ -2109,7 +2152,7 @@ changed: [pavroto-3]
 
 TASK [influxdb : influxdb_backup_cron] *****************************************
 --- before
-+++ after: /home/anon/.ansible/tmp/ansible-local-9221asjf3cbk/tmpfnnoi59c/influxdb-backup.j2
++++ after: /home/anon/.ansible/tmp/ansible-local-1714mjbw3sru/tmpxbw3m6fg/influxdb-backup.j2
 @@ -0,0 +1,3 @@
 +0 0 * * *	backup		rm -rf /home/backup/influxdb/*; influxd backup -portable -database telegraf /home/backup/influxdb
 +5 0 * * 0	backup  	duplicity --no-encryption full /home/backup/influxdb/ rsync://pavroto@backup.pavroto.ttu/influxdb
@@ -2185,7 +2228,7 @@ changed: [pavroto-3]
 
 TASK [nginx : nginx_template_default] ******************************************
 --- before: /etc/nginx/sites-enabled/default
-+++ after: /home/anon/.ansible/tmp/ansible-local-9221asjf3cbk/tmpy2ydoc03/default.j2
++++ after: /home/anon/.ansible/tmp/ansible-local-1714mjbw3sru/tmp5cug8snq/default.j2
 @@ -1,91 +1,35 @@
 -##
 -# You should look at the following URL's in order to grasp a solid understanding
@@ -2238,7 +2281,7 @@ TASK [nginx : nginx_template_default] ******************************************
 -		# First attempt to serve request as file, then
 -		# as directory, then fall back to displaying a 404.
 -		try_files $uri $uri/ =404;
-+        	return 301 http://193.40.156.67:10580/grafana$request_uri;
++        	return 301 http://193.40.156.67:5880/grafana$request_uri;
 +    	}
 +
 +	location /prometheus {
@@ -2339,7 +2382,7 @@ changed: [pavroto-3]
 
 TASK [prometheus : prometheus_template_yml] ************************************
 --- before: /etc/prometheus/prometheus.yml
-+++ after: /home/anon/.ansible/tmp/ansible-local-9221asjf3cbk/tmp68zr2djc/prometheus.yml.j2
++++ after: /home/anon/.ansible/tmp/ansible-local-1714mjbw3sru/tmpqfbnkwan/prometheus.yml.j2
 @@ -11,10 +11,10 @@
        monitor: 'example'
  
@@ -2398,7 +2441,7 @@ changed: [pavroto-3]
 
 TASK [prometheus : prometheus_template_default] ********************************
 --- before: /etc/default/prometheus
-+++ after: /home/anon/.ansible/tmp/ansible-local-9221asjf3cbk/tmpksrrbb0a/prometheus.default.j2
++++ after: /home/anon/.ansible/tmp/ansible-local-1714mjbw3sru/tmpqx5sytzb/prometheus.default.j2
 @@ -1,5 +1,5 @@
  # Set the command-line arguments to pass to the server.
 -ARGS=""
@@ -2478,7 +2521,7 @@ changed: [pavroto-3]
 
 TASK [grafana : grafana_template_datasource] ***********************************
 --- before
-+++ after: /home/anon/.ansible/tmp/ansible-local-9221asjf3cbk/tmpsgwotjxp/prometheus-datasource.yaml.j2
++++ after: /home/anon/.ansible/tmp/ansible-local-1714mjbw3sru/tmpqrf0yqpy/prometheus-datasource.yaml.j2
 @@ -0,0 +1,54 @@
 +
 +# config file version
@@ -2537,7 +2580,7 @@ TASK [grafana : grafana_template_datasource] ***********************************
 
 changed: [pavroto-3] => (item=prometheus)
 --- before
-+++ after: /home/anon/.ansible/tmp/ansible-local-9221asjf3cbk/tmp26fmqotu/influxdb-pinger-datasource.yaml.j2
++++ after: /home/anon/.ansible/tmp/ansible-local-1714mjbw3sru/tmp_hz63lve/influxdb-pinger-datasource.yaml.j2
 @@ -0,0 +1,12 @@
 +apiVersion: 1
 +
@@ -2554,7 +2597,7 @@ changed: [pavroto-3] => (item=prometheus)
 
 changed: [pavroto-3] => (item=influxdb-pinger)
 --- before
-+++ after: /home/anon/.ansible/tmp/ansible-local-9221asjf3cbk/tmpmfsfrwi6/influxdb-syslog-datasource.yaml.j2
++++ after: /home/anon/.ansible/tmp/ansible-local-1714mjbw3sru/tmpqub60bhn/influxdb-syslog-datasource.yaml.j2
 @@ -0,0 +1,12 @@
 +apiVersion: 1
 +
@@ -6233,7 +6276,7 @@ changed: [pavroto-3]
 
 TASK [pinger : pinger_template_conf] *******************************************
 --- before
-+++ after: /home/anon/.ansible/tmp/ansible-local-9221asjf3cbk/tmpp0_r0dh9/pinger.conf.j2
++++ after: /home/anon/.ansible/tmp/ansible-local-1714mjbw3sru/tmp8s95e_ku/pinger.conf.j2
 @@ -0,0 +1,3 @@
 +database_url=http://pavroto-3:8086
 +database_name=pinger
@@ -6269,9 +6312,9 @@ RUNNING HANDLER [pinger : pinger_restart] **************************************
 changed: [pavroto-3]
 
 PLAY RECAP *********************************************************************
-pavroto-1                  : ok=81   changed=65   unreachable=0    failed=0    skipped=4    rescued=0    ignored=0   
-pavroto-2                  : ok=81   changed=65   unreachable=0    failed=0    skipped=4    rescued=0    ignored=0   
-pavroto-3                  : ok=87   changed=73   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+pavroto-1                  : ok=83   changed=67   unreachable=0    failed=0    skipped=4    rescued=0    ignored=0   
+pavroto-2                  : ok=83   changed=67   unreachable=0    failed=0    skipped=4    rescued=0    ignored=0   
+pavroto-3                  : ok=89   changed=75   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
 + ansible-playbook infra.yaml --diff
 
@@ -6279,13 +6322,13 @@ PLAY [Gather Facts] ************************************************************
 
 TASK [Gathering Facts] *********************************************************
 ok: [pavroto-3]
-ok: [pavroto-2]
 ok: [pavroto-1]
+ok: [pavroto-2]
 
 TASK [gather_facts : Gather Facts] *********************************************
 ok: [pavroto-1]
-ok: [pavroto-2]
 ok: [pavroto-3]
+ok: [pavroto-2]
 
 PLAY [Initial setup] ***********************************************************
 
@@ -6295,29 +6338,39 @@ ok: [pavroto-3]
 ok: [pavroto-2]
 
 TASK [init : init_template_hosts] **********************************************
+ok: [pavroto-3]
 ok: [pavroto-1]
 ok: [pavroto-2]
-ok: [pavroto-3]
 
 TASK [init : init_template_hostname] *******************************************
 ok: [pavroto-1]
-ok: [pavroto-3]
 ok: [pavroto-2]
+ok: [pavroto-3]
 
 TASK [init : init_user_juri] ***************************************************
-ok: [pavroto-1]
 ok: [pavroto-3]
+ok: [pavroto-1]
 ok: [pavroto-2]
 
 TASK [init : init_user_roman] **************************************************
+ok: [pavroto-1]
+ok: [pavroto-2]
+ok: [pavroto-3]
+
+TASK [init : Set authorized key for juri] **************************************
+ok: [pavroto-1]
 ok: [pavroto-3]
 ok: [pavroto-2]
+
+TASK [init : Set authorized key for roman] *************************************
+ok: [pavroto-3]
 ok: [pavroto-1]
+ok: [pavroto-2]
 
 TASK [init : init_install_duplicity] *******************************************
+ok: [pavroto-1]
 ok: [pavroto-3]
 ok: [pavroto-2]
-ok: [pavroto-1]
 
 TASK [init : init_user_backup] *************************************************
 ok: [pavroto-1]
@@ -6325,9 +6378,9 @@ ok: [pavroto-2]
 ok: [pavroto-3]
 
 TASK [init : init_template_known_hosts] ****************************************
-ok: [pavroto-1]
-ok: [pavroto-2]
 ok: [pavroto-3]
+ok: [pavroto-2]
+ok: [pavroto-1]
 
 TASK [init : init_apt_update] **************************************************
 ok: [pavroto-1]
@@ -6336,8 +6389,8 @@ ok: [pavroto-2]
 
 TASK [init : init_upgrade_ca_certificates] *************************************
 ok: [pavroto-1]
-ok: [pavroto-2]
 ok: [pavroto-3]
+ok: [pavroto-2]
 
 TASK [init : init_install_pip] *************************************************
 ok: [pavroto-1]
@@ -6356,12 +6409,12 @@ ok: [pavroto-2]
 
 TASK [init : bind_install_dnspython] *******************************************
 ok: [pavroto-1]
-ok: [pavroto-2]
 ok: [pavroto-3]
+ok: [pavroto-2]
 
 TASK [init : init_template_telegraf_output] ************************************
-ok: [pavroto-2]
 ok: [pavroto-1]
+ok: [pavroto-2]
 ok: [pavroto-3]
 
 TASK [init : init_apt_node_exporter] *******************************************
@@ -6370,9 +6423,9 @@ ok: [pavroto-3]
 ok: [pavroto-2]
 
 TASK [init : init_service_node_exporter] ***************************************
-ok: [pavroto-3]
 ok: [pavroto-1]
 ok: [pavroto-2]
+ok: [pavroto-3]
 
 TASK [docker : docker_install] *************************************************
 ok: [pavroto-1]
@@ -6409,8 +6462,8 @@ ok: [pavroto-3]
 
 TASK [bind : bind_directory] ***************************************************
 ok: [pavroto-1]
-ok: [pavroto-2]
 ok: [pavroto-3]
+ok: [pavroto-2]
 
 TASK [bind : bind_template_domain] *********************************************
 skipping: [pavroto-1] => (item=None) 
@@ -6434,9 +6487,9 @@ ok: [pavroto-2]
 ok: [pavroto-3]
 
 TASK [bind : bind_service] *****************************************************
+ok: [pavroto-1]
 ok: [pavroto-3]
 ok: [pavroto-2]
-ok: [pavroto-1]
 
 TASK [bind : bind_service_exporter] ********************************************
 ok: [pavroto-1]
@@ -6450,14 +6503,14 @@ ok: [pavroto-3]
 
 TASK [bind : bind_nsupdate_ns] *************************************************
 ok: [pavroto-1]
-ok: [pavroto-3]
 ok: [pavroto-2]
+ok: [pavroto-3]
 
 PLAY [Database MySql] **********************************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [pavroto-2]
 ok: [pavroto-1]
+ok: [pavroto-2]
 
 TASK [mysql : mysql_install] ***************************************************
 ok: [pavroto-1]
@@ -6468,20 +6521,20 @@ ok: [pavroto-1]
 ok: [pavroto-2]
 
 TASK [mysql : mysql_template_override] *****************************************
-ok: [pavroto-1]
 ok: [pavroto-2]
+ok: [pavroto-1]
 
 TASK [mysql : mysql_variables] *************************************************
-ok: [pavroto-1]
 ok: [pavroto-2]
+ok: [pavroto-1]
 
 TASK [mysql : mysql_database_agama] ********************************************
 ok: [pavroto-1]
 ok: [pavroto-2]
 
 TASK [mysql : mysql_user_agama] ************************************************
-ok: [pavroto-1]
 ok: [pavroto-2]
+ok: [pavroto-1]
 
 TASK [mysql : mysql_user_backup] ***********************************************
 ok: [pavroto-1]
@@ -6492,8 +6545,8 @@ ok: [pavroto-1]
 ok: [pavroto-2]
 
 TASK [mysql : mysql_user_replication] ******************************************
-ok: [pavroto-1]
 ok: [pavroto-2]
+ok: [pavroto-1]
 
 TASK [mysql : mysql_template_my_prometheus] ************************************
 ok: [pavroto-1]
@@ -6582,8 +6635,8 @@ ok: [pavroto-1]
 ok: [pavroto-2]
 
 TASK [haproxy : haproxy_service] ***********************************************
-ok: [pavroto-1]
 ok: [pavroto-2]
+ok: [pavroto-1]
 
 TASK [haproxy : haproxy_install_exporter] **************************************
 ok: [pavroto-1]
@@ -6594,8 +6647,8 @@ ok: [pavroto-1]
 ok: [pavroto-2]
 
 TASK [haproxy : haproxy_service_exporter] **************************************
-ok: [pavroto-2]
 ok: [pavroto-1]
+ok: [pavroto-2]
 
 TASK [haproxy : haproxy_nsupdate] **********************************************
 ok: [pavroto-1]
@@ -6616,10 +6669,10 @@ ok: [pavroto-1]
 ok: [pavroto-2]
 
 TASK [agama : agama_container] *************************************************
-ok: [pavroto-1] => (item=0)
 ok: [pavroto-2] => (item=0)
-ok: [pavroto-1] => (item=1)
+ok: [pavroto-1] => (item=0)
 ok: [pavroto-2] => (item=1)
+ok: [pavroto-1] => (item=1)
 
 TASK [agama : agama_container_info] ********************************************
 ok: [pavroto-1]
@@ -6774,24 +6827,24 @@ TASK [pinger : pinger_service] *************************************************
 ok: [pavroto-3]
 
 PLAY RECAP *********************************************************************
-pavroto-1                  : ok=69   changed=0    unreachable=0    failed=0    skipped=5    rescued=0    ignored=0   
-pavroto-2                  : ok=69   changed=0    unreachable=0    failed=0    skipped=5    rescued=0    ignored=0   
-pavroto-3                  : ok=72   changed=0    unreachable=0    failed=0    skipped=3    rescued=0    ignored=0   
+pavroto-1                  : ok=71   changed=0    unreachable=0    failed=0    skipped=5    rescued=0    ignored=0   
+pavroto-2                  : ok=71   changed=0    unreachable=0    failed=0    skipped=5    rescued=0    ignored=0   
+pavroto-3                  : ok=74   changed=0    unreachable=0    failed=0    skipped=3    rescued=0    ignored=0   
 
 + ansible all -b -m reboot -a test_command=uptime
-pavroto-2 | CHANGED => {
-    "changed": true,
-    "elapsed": 45,
-    "rebooted": true
-}
 pavroto-3 | CHANGED => {
     "changed": true,
-    "elapsed": 47,
+    "elapsed": 48,
     "rebooted": true
 }
 pavroto-1 | CHANGED => {
     "changed": true,
-    "elapsed": 54,
+    "elapsed": 57,
+    "rebooted": true
+}
+pavroto-2 | CHANGED => {
+    "changed": true,
+    "elapsed": 59,
     "rebooted": true
 }
 + ansible-playbook infra.yaml --diff
@@ -6799,86 +6852,96 @@ pavroto-1 | CHANGED => {
 PLAY [Gather Facts] ************************************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [pavroto-2]
 ok: [pavroto-1]
 ok: [pavroto-3]
+ok: [pavroto-2]
 
 TASK [gather_facts : Gather Facts] *********************************************
 ok: [pavroto-3]
-ok: [pavroto-1]
 ok: [pavroto-2]
+ok: [pavroto-1]
 
 PLAY [Initial setup] ***********************************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [pavroto-3]
-ok: [pavroto-2]
 ok: [pavroto-1]
+ok: [pavroto-2]
+ok: [pavroto-3]
 
 TASK [init : init_template_hosts] **********************************************
-ok: [pavroto-1]
 ok: [pavroto-2]
+ok: [pavroto-1]
 ok: [pavroto-3]
 
 TASK [init : init_template_hostname] *******************************************
-ok: [pavroto-3]
 ok: [pavroto-1]
 ok: [pavroto-2]
+ok: [pavroto-3]
 
 TASK [init : init_user_juri] ***************************************************
 ok: [pavroto-3]
-ok: [pavroto-2]
 ok: [pavroto-1]
+ok: [pavroto-2]
 
 TASK [init : init_user_roman] **************************************************
-ok: [pavroto-3]
 ok: [pavroto-1]
+ok: [pavroto-3]
 ok: [pavroto-2]
+
+TASK [init : Set authorized key for juri] **************************************
+ok: [pavroto-1]
+ok: [pavroto-3]
+ok: [pavroto-2]
+
+TASK [init : Set authorized key for roman] *************************************
+ok: [pavroto-3]
+ok: [pavroto-2]
+ok: [pavroto-1]
 
 TASK [init : init_install_duplicity] *******************************************
+ok: [pavroto-3]
 ok: [pavroto-1]
 ok: [pavroto-2]
-ok: [pavroto-3]
 
 TASK [init : init_user_backup] *************************************************
-ok: [pavroto-2]
 ok: [pavroto-3]
 ok: [pavroto-1]
+ok: [pavroto-2]
 
 TASK [init : init_template_known_hosts] ****************************************
-ok: [pavroto-2]
-ok: [pavroto-3]
 ok: [pavroto-1]
+ok: [pavroto-3]
+ok: [pavroto-2]
 
 TASK [init : init_apt_update] **************************************************
-ok: [pavroto-2]
 ok: [pavroto-3]
+ok: [pavroto-2]
 ok: [pavroto-1]
 
 TASK [init : init_upgrade_ca_certificates] *************************************
-ok: [pavroto-2]
 ok: [pavroto-3]
+ok: [pavroto-2]
 ok: [pavroto-1]
 
 TASK [init : init_install_pip] *************************************************
 ok: [pavroto-3]
-ok: [pavroto-2]
 ok: [pavroto-1]
+ok: [pavroto-2]
 
 TASK [init : init_copy_bash_aliases] *******************************************
-ok: [pavroto-2]
 ok: [pavroto-1]
 ok: [pavroto-3]
+ok: [pavroto-2]
 
 TASK [init : init_template_resolv] *********************************************
 ok: [pavroto-1]
-ok: [pavroto-2]
 ok: [pavroto-3]
+ok: [pavroto-2]
 
 TASK [init : bind_install_dnspython] *******************************************
 ok: [pavroto-1]
-ok: [pavroto-2]
 ok: [pavroto-3]
+ok: [pavroto-2]
 
 TASK [init : init_template_telegraf_output] ************************************
 ok: [pavroto-1]
@@ -6887,40 +6950,40 @@ ok: [pavroto-2]
 
 TASK [init : init_apt_node_exporter] *******************************************
 ok: [pavroto-1]
-ok: [pavroto-2]
 ok: [pavroto-3]
+ok: [pavroto-2]
 
 TASK [init : init_service_node_exporter] ***************************************
-ok: [pavroto-3]
-ok: [pavroto-2]
 ok: [pavroto-1]
+ok: [pavroto-2]
+ok: [pavroto-3]
 
 TASK [docker : docker_install] *************************************************
+ok: [pavroto-1]
 ok: [pavroto-3]
 ok: [pavroto-2]
-ok: [pavroto-1]
 
 TASK [docker : docker_service] *************************************************
-ok: [pavroto-3]
 ok: [pavroto-1]
 ok: [pavroto-2]
+ok: [pavroto-3]
 
 PLAY [DNS servers] *************************************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [pavroto-3]
 ok: [pavroto-1]
+ok: [pavroto-3]
 ok: [pavroto-2]
 
 TASK [bind : bind_install] *****************************************************
-ok: [pavroto-1]
 ok: [pavroto-3]
+ok: [pavroto-1]
 ok: [pavroto-2]
 
 TASK [bind : bind_template_named] **********************************************
 ok: [pavroto-1] => (item=None)
-ok: [pavroto-3] => (item=None)
 ok: [pavroto-2] => (item=None)
+ok: [pavroto-3] => (item=None)
 ok: [pavroto-1] => (item=None)
 ok: [pavroto-1]
 ok: [pavroto-3] => (item=None)
@@ -6929,9 +6992,9 @@ ok: [pavroto-2] => (item=None)
 ok: [pavroto-2]
 
 TASK [bind : bind_directory] ***************************************************
-ok: [pavroto-1]
-ok: [pavroto-2]
 ok: [pavroto-3]
+ok: [pavroto-2]
+ok: [pavroto-1]
 
 TASK [bind : bind_template_domain] *********************************************
 skipping: [pavroto-1] => (item=None) 
@@ -6951,18 +7014,18 @@ skipping: [pavroto-3]
 
 TASK [bind : bind_install_exporter] ********************************************
 ok: [pavroto-1]
-ok: [pavroto-2]
 ok: [pavroto-3]
+ok: [pavroto-2]
 
 TASK [bind : bind_service] *****************************************************
 ok: [pavroto-3]
-ok: [pavroto-2]
 ok: [pavroto-1]
+ok: [pavroto-2]
 
 TASK [bind : bind_service_exporter] ********************************************
 ok: [pavroto-1]
-ok: [pavroto-3]
 ok: [pavroto-2]
+ok: [pavroto-3]
 
 TASK [bind : bind_nsupdate_backup] *********************************************
 skipping: [pavroto-1]
@@ -6971,8 +7034,8 @@ ok: [pavroto-3]
 
 TASK [bind : bind_nsupdate_ns] *************************************************
 ok: [pavroto-3]
-ok: [pavroto-2]
 ok: [pavroto-1]
+ok: [pavroto-2]
 
 PLAY [Database MySql] **********************************************************
 
@@ -6985,16 +7048,16 @@ ok: [pavroto-1]
 ok: [pavroto-2]
 
 TASK [mysql : mysql_service] ***************************************************
-ok: [pavroto-1]
 ok: [pavroto-2]
+ok: [pavroto-1]
 
 TASK [mysql : mysql_template_override] *****************************************
 ok: [pavroto-1]
 ok: [pavroto-2]
 
 TASK [mysql : mysql_variables] *************************************************
-ok: [pavroto-2]
 ok: [pavroto-1]
+ok: [pavroto-2]
 
 TASK [mysql : mysql_database_agama] ********************************************
 ok: [pavroto-2]
@@ -7005,16 +7068,16 @@ ok: [pavroto-2]
 ok: [pavroto-1]
 
 TASK [mysql : mysql_user_backup] ***********************************************
-ok: [pavroto-2]
 ok: [pavroto-1]
+ok: [pavroto-2]
 
 TASK [mysql : mysql_user_exporter] *********************************************
 ok: [pavroto-1]
 ok: [pavroto-2]
 
 TASK [mysql : mysql_user_replication] ******************************************
-ok: [pavroto-2]
 ok: [pavroto-1]
+ok: [pavroto-2]
 
 TASK [mysql : mysql_template_my_prometheus] ************************************
 ok: [pavroto-1]
@@ -7025,20 +7088,20 @@ ok: [pavroto-1]
 ok: [pavroto-2]
 
 TASK [mysql : mysql_directory_backup] ******************************************
+ok: [pavroto-2] => (item=None)
 ok: [pavroto-1] => (item=None)
-ok: [pavroto-2] => (item=None)
-ok: [pavroto-2] => (item=None)
-ok: [pavroto-2]
 ok: [pavroto-1] => (item=None)
 ok: [pavroto-1]
+ok: [pavroto-2] => (item=None)
+ok: [pavroto-2]
 
 TASK [mysql : mysql_template_cron] *********************************************
-ok: [pavroto-2]
 ok: [pavroto-1]
+ok: [pavroto-2]
 
 TASK [mysql : mysql_install_exporter] ******************************************
-ok: [pavroto-2]
 ok: [pavroto-1]
+ok: [pavroto-2]
 
 TASK [mysql : mysql_copy_exporter_conf] ****************************************
 ok: [pavroto-1]
@@ -7059,8 +7122,8 @@ ok: [pavroto-1]
 ok: [pavroto-2]
 
 TASK [keepalived : keepalived_install] *****************************************
-ok: [pavroto-2]
 ok: [pavroto-1]
+ok: [pavroto-2]
 
 TASK [keepalived : keepalived_user] ********************************************
 ok: [pavroto-1]
@@ -7075,8 +7138,8 @@ ok: [pavroto-1]
 ok: [pavroto-2]
 
 TASK [keepalived : keepalived_service] *****************************************
-ok: [pavroto-1]
 ok: [pavroto-2]
+ok: [pavroto-1]
 
 TASK [keepalived : keepalived_install_exporter] ********************************
 ok: [pavroto-1]
@@ -7091,8 +7154,8 @@ skipping: [pavroto-1]
 skipping: [pavroto-2]
 
 TASK [keepalived : keepalived_service_exporter] ********************************
-ok: [pavroto-1]
 ok: [pavroto-2]
+ok: [pavroto-1]
 
 TASK [haproxy : haproxy_install] ***********************************************
 ok: [pavroto-1]
@@ -7115,8 +7178,8 @@ ok: [pavroto-1]
 ok: [pavroto-2]
 
 TASK [haproxy : haproxy_service_exporter] **************************************
-ok: [pavroto-1]
 ok: [pavroto-2]
+ok: [pavroto-1]
 
 TASK [haproxy : haproxy_nsupdate] **********************************************
 ok: [pavroto-1]
@@ -7127,24 +7190,24 @@ ok: [pavroto-1]
 ok: [pavroto-2]
 
 TASK [agama : agama_download] **************************************************
-ok: [pavroto-1] => (item=Dockerfile)
 ok: [pavroto-2] => (item=Dockerfile)
-ok: [pavroto-1] => (item=agama.py)
+ok: [pavroto-1] => (item=Dockerfile)
 ok: [pavroto-2] => (item=agama.py)
+ok: [pavroto-1] => (item=agama.py)
 
 TASK [agama : agama_image] *****************************************************
-ok: [pavroto-1]
 ok: [pavroto-2]
+ok: [pavroto-1]
 
 TASK [agama : agama_container] *************************************************
-ok: [pavroto-2] => (item=0)
 ok: [pavroto-1] => (item=0)
+ok: [pavroto-2] => (item=0)
 ok: [pavroto-1] => (item=1)
 ok: [pavroto-2] => (item=1)
 
 TASK [agama : agama_container_info] ********************************************
-ok: [pavroto-1]
 ok: [pavroto-2]
+ok: [pavroto-1]
 
 TASK [agama : agama_container_remove] ******************************************
 
@@ -7295,9 +7358,9 @@ TASK [pinger : pinger_service] *************************************************
 ok: [pavroto-3]
 
 PLAY RECAP *********************************************************************
-pavroto-1                  : ok=69   changed=0    unreachable=0    failed=0    skipped=5    rescued=0    ignored=0   
-pavroto-2                  : ok=69   changed=0    unreachable=0    failed=0    skipped=5    rescued=0    ignored=0   
-pavroto-3                  : ok=72   changed=0    unreachable=0    failed=0    skipped=3    rescued=0    ignored=0   
+pavroto-1                  : ok=71   changed=0    unreachable=0    failed=0    skipped=5    rescued=0    ignored=0   
+pavroto-2                  : ok=71   changed=0    unreachable=0    failed=0    skipped=5    rescued=0    ignored=0   
+pavroto-3                  : ok=74   changed=0    unreachable=0    failed=0    skipped=3    rescued=0    ignored=0   
 
 + date
-Wed Jan 17 12:01:33 AM UTC 2024
+Wed Jan 17 09:32:52 AM UTC 2024
